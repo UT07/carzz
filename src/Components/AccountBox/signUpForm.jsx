@@ -6,15 +6,18 @@ export function SignupForm(props){
     const {switchToSignIn}=useContext(AccountContext);
     const [nameRegister,setNameRegister]=useState('');
     const [phoneNumberRegister,setPhoneNumberRegister]=useState('');
+    const [confirmPhoneNumberRegister,setConfirmPhoneNumberRegister]=useState('');
     const registerUser=()=>{
         Axios.post("http://localhost:3001/signup",
         {   Name:nameRegister,
-            Phone:phoneNumberRegister
+            Phone:phoneNumberRegister,
+            ConfirmPhone:confirmPhoneNumberRegister
         }).then((err)=>
         {
             console.log(err);
         });
     };
+    
 return(
     <BoxContainer>
         <FormContainer>
@@ -22,10 +25,12 @@ return(
                 setNameRegister(event.target.value);
             }} 
             placeholder="Please enter your Full Name"/>
-            <Input type="tel" onChange={(event)=>{
+            <Input type="text" onChange={(event)=>{
                 setPhoneNumberRegister(event.target.value);
             }} placeholder="Enter your Phone Number"/>
-            <Input type="tel" placeholder="Confirm your Phone Number"/>
+            <Input type="text" onChange={(event)=>{
+                setConfirmPhoneNumberRegister(event.target.value);
+            }} placeholder="Confirm your Phone Number"/>
         </FormContainer>
         <Margin direction="vertical" margin={10}/>
         <SubmitButton type="submit" onClick={registerUser}>SignUp</SubmitButton>
