@@ -1,5 +1,6 @@
+import { createContext } from "react";
 import styled from "styled-components";
-
+import { motion } from "framer-motion";
 
 export const AppContainer=styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Oswald:wght@200&family=Pangolin&display=swap');   
@@ -78,18 +79,6 @@ export const InnerContainer=styled.div`
     flex-direction:column;
 `;
 
-export const BackDrop=styled.div`
-    width:160%;
-    height:600px;
-    position:absolute;
-    display:flex;
-    flex-direction:column;
-    border-radius:50%;
-    top: -320px;
-    left: -70px;
-    background: rgb(181,77,241);
-    background: linear-gradient(60deg, rgba(181,77,241,1) 27%, rgba(0,252,253,0.86) 100%);  
-`;
 
 export const HeaderText=styled.h2`
     font-size:35px;
@@ -99,6 +88,15 @@ export const HeaderText=styled.h2`
     color: rgba(236, 240, 241,1.0);
     z-index:10;
     margin:0;
+`;
+export const SmallText=styled.h5`
+    color: rgba(236, 240, 241,1.0);
+    font-weight: 500;
+    font-size:10px;
+    font-family: 'Montserrat', sans-serif;
+    z-index:10;
+    margin: 0;
+    margin-top:25px;
 `;
 
 //Common components used both in login and sign up screen
@@ -161,4 +159,5 @@ export const SubmitButton=styled.button`
      }
 `;
 
-// Components used for Forms
+// Components used for context
+export const AccountContext=createContext();
