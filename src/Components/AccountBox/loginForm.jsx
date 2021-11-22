@@ -1,27 +1,28 @@
 import React,{useContext,useState} from "react";
-import { BoldLink, BoxContainer2, FormContainer, Input, MutedLink, SmallText,SubmitButton,AccountContext } from "../../styles";
+import { useHistory } from "react-router-dom"; 
+import { BoldLink, BoxContainer2, FormContainer, Input, MutedLink, SubmitButton,AccountContext } from "../../styles";
 import {Margin} from '../Margin';
 import Axios from "axios";
 export function LoginForm(props){
     const {switchToSignUp}=useContext(AccountContext);
     const [phoneNumber,setPhoneNumber]=useState('');
+    const history=useHistory();
     const loginUser=()=>{
-        if (phoneNumber!==NaN){
+        if(!isNaN(phoneNumber)){
             Axios.post("http://localhost:3001/login",
-        {
-            Phone:phoneNumber
+            {
+                Phone:phoneNumber
+            }).then(()=>
+            {
+            history.push('/home')
             
-        }).then((err)=>
-        {
-            console.log(err);
-        });    
-        }
-        
-    };
+            });
+        };
+    }    
     return( 
     <BoxContainer2>
         <FormContainer>
-            <Input type="text"  onChange={(event)=>{
+            <Input type="tel"  onChange={(event)=>{
                 setPhoneNumber(event.target.value);
             }} placeholder="Enter your phone Number"/>
         </FormContainer>
