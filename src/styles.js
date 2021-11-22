@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+
 
 export const AppContainer=styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Oswald:wght@200&family=Pangolin&display=swap');   

@@ -3,6 +3,7 @@ import { BoldLink, BoxContainer2, FormContainer, Input, MutedLink, SubmitButton,
 import {Margin} from '../Margin';
 export function LoginForm(props){
     const {switchToSignUp}=useContext(AccountContext);
+    
     return( 
     <BoxContainer2>
         <FormContainer>
