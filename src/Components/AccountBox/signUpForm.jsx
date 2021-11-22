@@ -1,25 +1,30 @@
 import  Axios from "axios";
 import React,{useContext,useState} from "react";
-import { BoldLink,BoxContainer,FormContainer,Input,MutedLink,SubmitButton,AccountContext} from "../../styles";
+import { useHistory } from "react-router-dom";
+import { BoldLink,BoxContainer2,FormContainer,Input,MutedLink,SubmitButton,AccountContext} from "../../styles";
 import { Margin } from "../Margin";
 export function SignupForm(props){
     const {switchToSignIn}=useContext(AccountContext);
     const [nameRegister,setNameRegister]=useState('');
     const [phoneNumberRegister,setPhoneNumberRegister]=useState('');
     const [confirmPhoneNumberRegister,setConfirmPhoneNumberRegister]=useState('');
+    const history=useHistory();
     const registerUser=()=>{
-        Axios.post("http://localhost:3001/signup",
-        {   Name:nameRegister,
-            Phone:phoneNumberRegister,
-            ConfirmPhone:confirmPhoneNumberRegister
-        }).then((err)=>
-        {
-            console.log(err);
-        });
-    };
+        if(!isNaN(phoneNumberRegister)&& !isNaN(confirmPhoneNumberRegister) && !isNaN(nameRegister)){
+            Axios.post("http://localhost:3001/signup",
+            {   Name:nameRegister,
+                Phone:phoneNumberRegister,
+                ConfirmPhone:confirmPhoneNumberRegister
+            }).then(()=>
+            {
+             history.push({pathname:'/home',state:{ update: true },});
+            });
+        }
+    }
+    
     
 return(
-    <BoxContainer>
+    <BoxContainer2>
         <FormContainer>
             <Input type="text" onChange={(event)=>{
                 setNameRegister(event.target.value);
@@ -33,11 +38,11 @@ return(
             }} placeholder="Confirm your Phone Number"/>
         </FormContainer>
         <Margin direction="vertical" margin={10}/>
-        <SubmitButton type="submit" onClick={registerUser}>SignUp</SubmitButton>
+        <SubmitButton type="submit" onClick={()=>{registerUser();switchToSignIn();}}>SignUp</SubmitButton>
         <Margin direction="vertical" margin="1em"/>
         <MutedLink href="#">Already have an account?
             <BoldLink href="#" onClick={switchToSignIn}>SignIn</BoldLink>
         </MutedLink>
-    </BoxContainer>
+    </BoxContainer2>
     );
 }

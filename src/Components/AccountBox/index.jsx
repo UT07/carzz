@@ -4,6 +4,8 @@ import { BoxContainer,TopContainer,HeaderContainer,HeaderText, SmallText,InnerCo
 import { LoginForm } from './loginForm';
 import { SignupForm } from './signUpForm';
 import { motion } from "framer-motion";
+
+
 const BackDrop=styled(motion.div)`
     width:160%;
     height:600px;

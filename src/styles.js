@@ -1,22 +1,8 @@
-import { createContext } from "react";
+import React,{ createContext } from "react";
 import styled from "styled-components";
 
 
-export const AppContainer=styled.div`
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Oswald:wght@200&family=Pangolin&display=swap');   
-    & h1 {
-        font-family: "Montserrat", sans-serif;
-    }
-    & h2 {
-        font-family: "Pangolin", sans-serif;
-    }
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-`;
+
 //Margin Components
 export const HorizontalMargin = styled.span`
   display: flex;
@@ -32,6 +18,21 @@ export const VerticalMargin = styled.span`
 `;
 
 //container Components
+export const AppContainer=styled.div`
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Oswald:wght@200&family=Pangolin&display=swap');   
+    & h1 {
+        font-family: "Montserrat", sans-serif;
+    }
+    & h2 {
+        font-family: "Pangolin", sans-serif;
+    }
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+`;
 export const BoxContainer=styled.div`
     width: 280px;
     min-height: 550px;
@@ -160,4 +161,4 @@ export const SubmitButton=styled.button`
 `;
 
 // Components used for context
-export const AccountContext=createContext();
+export const AccountContext=React.createContext();
