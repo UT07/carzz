@@ -20,3 +20,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.carimg{
+  height: 225px;
+  width:auto;
+}
+.car{
+  width: 370px;
+   height: 400px;
+    display:flex;
+    flex-direction:column;
+    border-radius: 19px;
+    background-color: rgba(255,255,255,100);
+    box-shadow: 0 0 2px rgba(15,15,15,0.30);
+    position: relative;
+    overflow: hidden;
+}
+.car-card{
+  margin-top: 40px;
+}
+.desc{
+  width: max-content;
+  padding: 2px;
+}
+.spinner{
+  position: absolute !important; 
+  top:50%;
+  right:50%;
+  color:" rgb(181,77,241)"; 
+}

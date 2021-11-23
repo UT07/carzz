@@ -138,6 +138,15 @@ export const SmallText=styled.h5`
     margin: 0;
     margin-top:25px;
 `;
+export const SmallTextVehicle=styled.h5`
+    color: #2c3e50;
+    font-weight: 500;
+    font-size:10px;
+    font-family: 'Montserrat', sans-serif;
+    z-index:10;
+    margin: 0;
+    margin-top:25px;
+`;
 
 //Common components used both in login and sign up screen
 

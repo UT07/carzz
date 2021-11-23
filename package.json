@@ -53,9 +53,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"http://localhost:3001/",
+  "proxy": "http://localhost:3001/",
+  "theme": {
+    "primary-color": "rgb(181,77,241)"
+  },
   "devDependencies": {
     "twilio": "^3.71.2"
   }
-  
 }

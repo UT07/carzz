@@ -75,7 +75,7 @@ app.post("/login",(request,response)=>{
     );
 });
 app.get("/vehicles",(request,response)=>{
-    db.query("SELECT * FROM vehicle",(err,res)=>{
+    db.query("SELECT DISTINCT * FROM vehicle, rate WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type",(err,res)=>{
         if(err){
             console.log(err);
         }

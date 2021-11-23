@@ -4,6 +4,7 @@ import {AccountBox } from './Components/AccountBox';
 import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';
 import CarBook from './pages/Dashboard/bookCar';
+import 'antd/dist/antd.css';
 function App() {
   return(
     <Router>
