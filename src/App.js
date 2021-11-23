@@ -3,7 +3,7 @@ import {AppContainer} from './styles';
 import {AccountBox } from './Components/AccountBox';
 import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';
-
+import CarBook from './pages/Dashboard/bookCar';
 function App() {
   return(
     <Router>
@@ -11,6 +11,7 @@ function App() {
         <Switch>
           <Route exact path='/'><AccountBox/></Route>
           <Route exact path='/home'><Dashboard/></Route>
+          <Route exact path='/rent'><CarBook/></Route>a 
         </Switch>
       </AppContainer>
     </Router>

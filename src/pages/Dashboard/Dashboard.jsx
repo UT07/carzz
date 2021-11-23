@@ -1,21 +1,42 @@
-import React, { Component } from "react";
- 
-class Dashboard extends Component {
-  render() {
-    return (
-      <div>
-        <h2>HELLO</h2>
-        <p>Cras facilisis urna ornare ex volutpat, et
-        convallis erat elementum. Ut aliquam, ipsum vitae
-        gravida suscipit, metus dui bibendum est, eget rhoncus nibh
-        metus nec massa. Maecenas hendrerit laoreet augue
-        nec molestie. Cum sociis natoque penatibus et magnis
-        dis parturient montes, nascetur ridiculus mus.</p>
- 
-        <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
-      </div>
-    );
-  }
+
+import {Navbar} from "../../Components/Navbar/index";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useEffect,useState } from "react";
+import {getCars} from '../../Redux/actions/vehicleAction';
+import {BoxContainer, HeaderText} from '../../styles';
+import Axios from 'axios';
+
+function Dashboard(props){
+  const {cars,loading}=useSelector(state=>state.carsReducer)
+  const dispatch=useDispatch()
+  const [carsList, setCarsList] = useState('');
+  const getAllCars=()=>{
+    Axios.get("http://localhost:3001/vehicles").then((response)=>{
+      console.log(response.data);
+      setCarsList(response.data);
+    });
+  };
+  console.log(carsList.length) 
+  useEffect(()=>{
+      dispatch(getCars())
+  },[])
+  return(
+    <div>
+      <Navbar/>
+      <HeaderText>The length of cars is {cars.length}</HeaderText>
+      {cars.map((val,key)=>{
+        return (
+          <BoxContainer>
+            <HeaderText>Description:{val.Description}</HeaderText>
+          </BoxContainer>
+        );
+      })}
+    </div>
+    
+    
+  );
+  
 }
- 
-export default Dashboard;
+
+export default Dashboard

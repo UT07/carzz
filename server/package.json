@@ -1,0 +1,24 @@
+{
+  "name": "rental_db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UT07/carzz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UT07/carzz/issues"
+  },
+  "homepage": "https://github.com/UT07/carzz#readme",
+  "dependencies": {
+    "messagebird": "^2.1.4",
+    "unirest": "^0.6.0"
+  }
+}

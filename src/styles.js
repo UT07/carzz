@@ -80,6 +80,36 @@ export const InnerContainer=styled.div`
     flex-direction:column;
 `;
 
+export const NavbarContainer=styled.div`
+    width:100%;
+    height:80px;
+    box-shadow:0 1px 3px  rgba(15,15,15,0.12);
+    display:flex;
+    align-items:center;
+    padding 0 1.7 em;
+`;
+export const NavLinksContainer=styled.div`
+    height:100%;
+    display:flex;
+    align-items:center;
+
+`
+
+export const LeftSection=styled.div`
+    display:flex;
+
+`;
+export const MiddleSection=styled.div`
+    display:flex;
+    flex:2;
+`;
+export const RightSection=styled.div`
+    display:flex;
+`;
+
+
+
+
 
 export const HeaderText=styled.h2`
     font-size:35px;
@@ -89,6 +119,15 @@ export const HeaderText=styled.h2`
     color: rgba(236, 240, 241,1.0);
     z-index:10;
     margin:0;
+`;
+export const LogoText=styled.h2`
+    font-size:35px;
+    font-family: 'Montserrat', sans-serif;
+
+    line-height:1.24;
+    color:#2c3e50;
+    font-weight:750px;
+     
 `;
 export const SmallText=styled.h5`
     color: rgba(236, 240, 241,1.0);
@@ -118,6 +157,40 @@ export const BoldLink=styled.a`
     font-family: 'Oswald', sans-serif;
     text-decoration:none;   
 `;
+export const LinksWrapper=styled.div` 
+    height: 100%
+    display:flex;
+    margin-left:400px;
+    padding:0;
+`;
+export const LinkItems=styled.li`
+    height:100%;
+    padding: 0 1.1em;
+    color:#2c3e50
+    font-size:35px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    line-height:1.24;
+    align-items:center;
+    justify-content:center;
+    list-style-type: none;
+    &hover{
+       border-top: 2px solid rgb(181,77,241);
+    }
+`;
+export const Link=styled.a`
+    text-decoration: none;
+    color:inherit;
+    font-size:inherit;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    line-height:1.24;
+    text-align:center;
+    
+    &hover{
+        color:rgb(181,77,241);
+    }
+`
 //Components for input
 export const Input=styled.input`
     border:2px solid rgba(200,200,200,0.0.2);
@@ -162,3 +235,27 @@ export const SubmitButton=styled.button`
 
 // Components used for context
 export const AccountContext=React.createContext();
+
+//Defining device size 
+export const DeviceSize={
+    mobile:768,
+    tablet:992,
+    laptop:1324,
+};
+export const LogoWrapper=styled.div`
+    display:flex;
+    align-items:center;
+`;
+export const LogoImage=styled.div`
+    width:65px;
+    height:70px;
+    img{
+        width:100%;
+        height:100%auto;
+        color:rgb(181,77,241);
+        font-weight:600;
+        font-size:15px;
+        align-items:center
+    }
+
+`;

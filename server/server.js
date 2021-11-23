@@ -1,10 +1,14 @@
+
+
 const express=require("express");
 const mysql=require("mysql");
 const app=express();
 const cors=require('cors');
-const { response } = require("express");
 app.use(cors());
 app.use(express.json());
+
+
+
 const db=mysql.createConnection({
     user:"root",
     host:"localhost",
@@ -27,22 +31,22 @@ db.on('error', function(err) {
       throw err;                                  
     }
   });
-
-  app.post("/signup",(request,response)=>{
-      const Name=request.body.Name;
-      const Phone=request.body.Phone;
-      const ConfirmPhone=request.body.ConfirmPhone;
-      if(Phone===ConfirmPhone){
-            const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
-            console.log(newPhone);
+app.post("/signup",(request,response)=>{
+    const Name=request.body.Name;
+    const Phone=request.body.Phone;
+    const ConfirmPhone=request.body.ConfirmPhone;
+    if(Phone===ConfirmPhone){
+        const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
+        console.log(newPhone);
         db.query(
             "INSERT INTO customer(Name,Phone)VALUES('" + Name + "', '" + newPhone + "' )",
             [Name,newPhone],
             (err,res)=>{
                 console.log(err);
             }
-        );
-    }else{
+        );        
+    }
+    else{
         response.send({message:"Phone number not registered"});
     }
 });
@@ -70,6 +74,18 @@ app.post("/login",(request,response)=>{
         }
     );
 });
+app.get("/vehicles",(request,response)=>{
+    db.query("SELECT * FROM vehicle",(err,res)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            response.send(res);
+        }
+    });
+});
+
+
 app.listen(3001,()=>{
     console.log("running server");
 });
