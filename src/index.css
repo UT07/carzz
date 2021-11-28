@@ -76,8 +76,8 @@ button{
 .car{
   border-radius: 5px;
   margin-top: 100px;
-  height: 160px;
-  transition: 0.3s;
+  height: 250px;
+  transition: 0.7s;
 }
 .car:hover{
   height :220px;
@@ -95,7 +95,7 @@ button{
   transform: translateY(-50px);
 }
 .car-content{
-  transform: translateY(-200px);
+  transform: translateY(-20px);
   opacity: 0;
   transition: 0.7s;
   background: #CA0046;
@@ -161,7 +161,7 @@ a{
   
 }
 .boxx{
-  font-size:35px;
+  font-size:30px;
   font-family: 'Montserrat', sans-serif;
 
   line-height:1.24;
