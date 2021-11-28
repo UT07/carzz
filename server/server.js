@@ -1,12 +1,13 @@
 
-
+const jwt = require('express-jwt');
 const express=require("express");
 const mysql=require("mysql");
 const app=express();
 const cors=require('cors');
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
+const dbConnection=require('./db')
 
 
 const db=mysql.createConnection({
@@ -31,6 +32,48 @@ db.on('error', function(err) {
       throw err;                                  
     }
   });
+  exports.register = async function(req,res){
+    var users={
+        "name":req.body.Name,
+        "phone":req.body.Phone
+    }
+    db.query('INSERT INTO customer SET ?',users, function (error, results, fields) {
+        if (error) {
+          res.send({
+            "code":400,
+            "failed":"error ocurred"
+          })
+        } else {
+          res.send({
+            "code":200,
+            "success":"user registered sucessfully"
+              });
+          }
+      });
+}
+exports.login = async function(req,res){
+    var password = req.body.Phone;
+    connection.query('SELECT * FROM users WHERE Phone = ?',[Phone], async function (error, results, fields) {
+      if (error) {
+        res.send({
+          "code":400,
+          "failed":"error ocurred"
+        })
+      }else{
+        if(results.length >0){
+          const comparison = await bcrypt.compare(password, results[0].password)
+          if(comparison){
+              res.send({
+                "code":200,
+                "success":"login sucessfull"
+              })
+          }
+        }
+        
+      }
+    });
+  }
+
 app.post("/signup",(request,response)=>{
     const Name=request.body.Name;
     const Phone=request.body.Phone;
@@ -39,10 +82,15 @@ app.post("/signup",(request,response)=>{
         const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
         console.log(newPhone);
         db.query(
-            "INSERT INTO customer(Name,Phone)VALUES('" + Name + "', '" + newPhone + "' )",
+            "INSERT INTO customer(Name,Phone)VALUES( ?,? )",
             [Name,newPhone],
-            (err,res)=>{
-                console.log(err);
+            (err)=>{
+                if (err) {
+                    console.log(err);
+                  } else {
+                    response.send("Values Inserted");
+                  }
+                
             }
         );        
     }
@@ -65,7 +113,7 @@ app.post("/login",(request,response)=>{
                     response.send(result);    
                 }
                 else{
-                    response.send({message:"Phone number not registered"});
+                    response.send({message:"Couldn't log in"});
                 }
             }
             catch{
@@ -75,7 +123,7 @@ app.post("/login",(request,response)=>{
     );
 });
 app.get("/vehicles",(request,response)=>{
-    db.query("SELECT DISTINCT * FROM vehicle, rate WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type",(err,res)=>{
+    db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
         if(err){
             console.log(err);
         }

@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/UT07/carzz#readme",
   "dependencies": {
+    "express-jwt": "^6.1.0",
     "messagebird": "^2.1.4",
+    "mongoose": "^6.0.13",
     "unirest": "^0.6.0"
   }
 }

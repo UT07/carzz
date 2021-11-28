@@ -34,14 +34,17 @@ export const AppContainer=styled.div`
     justify-content:center;
 `;
 export const BoxContainer=styled.div`
-    width: 280px;
-    min-height: 550px;
+    width: 350px;
+    min-height: 750px;
     display:flex;
     flex-direction:column;
     border-radius: 19px;
     background-color: rgba(255,255,255,100);
     box-shadow: 0 0 2px rgba(15,15,15,0.30);
     position: relative;
+    top: 0px;
+    bottom: 50%;
+    left:700px;
     overflow: hidden;
 `;
 export const TopContainer=styled.div`
