@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useEffect,useState } from "react";
 import {getCars} from '../Redux/actions/vehicleAction';
 import { Row,Col,Button} from 'antd';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import { LogoText, p } from "../styles";
 
@@ -61,7 +61,7 @@ function Dashboard(props){
           cars.map(car=>{
             return <Col lg={5} sm={24} xs={24} gutter={40} className='car-card'>
               <div className="car p-2 bs1.2">
-              <img src={car.imagescol} className="carimg"/>  
+             <NavLink to={`/rent/${car.VehicleID}`}><img src={car.imagescol} className="carimg"/></NavLink> 
                 <div className="car-content d-flex align-items-center justify-content-between">
                     <div>
                       
@@ -79,8 +79,8 @@ function Dashboard(props){
                           
                       }
                       <Switch val={car.Type}/>
-                      <p className="desc">{car.Daily}  </p>
-                      <p className="desc">{car.Weekly}  </p>
+                      <p className="desc">{car.Daily} (D) </p>
+                      <p className="desc">{car.Weekly} (W)  </p>
                       <Button type="primary" style={{background: "rgb(181,77,241)"}} shape="round" className="book-btn mr-2"><Link to={`/rent/${car.VehicleID}`}>Book Now </Link> </Button>
                     </Row>
                     
