@@ -98,6 +98,30 @@ app.post("/signup",(request,response)=>{
         response.send({message:"Phone number not registered"});
     }
 });
+app.post("/rental",(request,response)=>{
+  
+  const CustID=request.body.CustID;
+  
+  const VehicleID=request.body.VehicleID;
+  const StartDate=request.body.StartDate;
+  const OrderDate=request.body.OrderDate;
+  const RentalType=request.body.RentalType;
+  const ReturnDate=request.body.ReturnDate;
+  const TotalAmount=request.body.TotalAmount;
+  console.log(VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount)
+  db.query(
+    "INSERT INTO rental(CustID,VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount) VALUES(?,?,?,?,?,?,?)",
+    [CustID,VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount],
+    (err,result)=>{
+      if (err) {
+          console.log(err);
+        } else {
+          response.send(result);
+        }
+      
+  }
+    );
+});
 app.post("/login",(request,response)=>{
     const Phone=request.body.Phone;
     const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
@@ -122,6 +146,17 @@ app.post("/login",(request,response)=>{
         }
     );
 });
+app.get('/rental',(request,response)=>{
+  db.query("SELECT  * FROM rental",(err,res)=>{
+      if(err){
+          console.log(err);
+      }
+      else{
+          response.send(res);
+      }
+  });
+});
+
 app.get("/vehicles",(request,response)=>{
     db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
         if(err){

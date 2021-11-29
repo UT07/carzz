@@ -2,10 +2,11 @@ import React, { useState,useEffect} from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Navbar } from "../Components/Navbar";
-import { Col, Row, Divider, DatePicker, Checkbox, Modal } from "antd";
+import { Col, Row, Button,Divider, DatePicker, Checkbox, Modal } from "antd";
 import Spinner from "../Components/PageLoader";
+import { bookCars } from "../Redux/actions/rentalAction";
 import {getCars} from '../Redux/actions/vehicleAction';
-
+import Axios from "axios";
 import moment from "moment";
 const Switch=({val})=>{
   switch (val) {
@@ -26,6 +27,7 @@ const Switch=({val})=>{
 
   }
 }
+
 const { RangePicker } = DatePicker;
  export function CarBook({match}){
   const {cars}=useSelector(state=>state.carsReducer)
@@ -36,6 +38,7 @@ const { RangePicker } = DatePicker;
   const [returnDate,setReturnDate]=useState([]);
   const [totalDays,setTotalDays]=useState(0);
   const [totalAmount,setTotalAmount]=useState(0);
+  
   useEffect(()=>{
     
     if(cars.length===0){
@@ -45,13 +48,45 @@ const { RangePicker } = DatePicker;
       setCar(cars.find(v=>v.VehicleID===match.params.VehicleID))
     }
   },[cars])
-  console.log(match.params)
-  console.log(car);
+  useEffect(()=>{
+    if(totalDays<7){
+      setTotalAmount(totalDays*car.Daily)
+    }
+    else{
+      setTotalAmount(totalDays*car.Weekly)
+      // setTotalAmount(Math.floor(totalDays/7)*car.Weekly+Math.floor(totalDays%7)*car.Daily)         
+    }
+  },[totalDays])
+
   function selectTimeSlots(val){
     setStartDate(moment(val[0]).format('YYYY-MM-DD'));
     setReturnDate(moment(val[1]).format('YYYY-MM-DD'));
     setTotalDays(Math.floor((Math.abs(val[1]-val[0]))/(1000*60*60*24)))
   }
+  function book(val){
+    const current = new Date();
+    const today = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+    var x=JSON.parse(localStorage.getItem('customer'))
+    console.log(today)
+    const req={
+      
+      CustID:x[0].CustID,
+      VehicleID:car.VehicleID,
+      StartDate:startDate,
+      OrderDate:today,
+      RentalType:car.Type,
+      ReturnDate:returnDate,
+      TotalAmount:totalAmount
+    };
+    if (!isNaN(x[0].CustID)){
+      Axios.post("http://localhost:3001/rental",req).then((res)=>
+      {
+        console.log(res.data)
+      });
+    
+    };
+   
+    }
    return(
     <div>
       <Navbar/>
@@ -75,14 +110,25 @@ const { RangePicker } = DatePicker;
               </div>               
             }
             <Switch val={car.Type}/>
-            <Row justify="end">
-            <p className="desc">{car.Daily} (D) </p>
-            <p className="desc">{car.Weekly} (W)  </p>
-            </Row> 
+            {
+              totalDays<7?
+              <p>Daily Rental Rate: $<b>{car.Daily}</b> </p>:
+              <p>Weekly Rental Rate: $<b>{car.Weekly}</b></p>
+
+            }
+         
           </div>
           <Divider type='horizontal' dashed style={{borderColor:"#CA0046"}}>Select Time Slots</Divider>
+          
+          <div align="right">
           <RangePicker showTime={{format:'HH:mm'}} format='MMM DD yyyy HH:mm' onChange={selectTimeSlots}></RangePicker>
-          {totalDays}
+            <p>Total Days: <b>{totalDays}</b></p>  
+            <h2>TotalAmount:$ <b>{isNaN(totalAmount)?0:totalAmount}</b></h2>
+            <Button type="primary" className="btn2" shape="round" 
+              style={{background: "#CA0046",color:"aliceblue", boxShadow: "none",border:"1px solid", padding: "5px 15px", height:"50px",width:"50pxS" }} 
+              shape="round" onClick={book}>Book Now </Button>
+          </div>
+
         </Col>
       </Row>
      </div>

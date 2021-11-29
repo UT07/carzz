@@ -44,6 +44,8 @@ function Login() {
             }).then((res)=>
             {
                 if(res.data["message"]!="Couldn't log in"){
+                    localStorage.setItem('customer',JSON.stringify(res.data))
+                    
                     history.push('/home')
                 }
                 else{

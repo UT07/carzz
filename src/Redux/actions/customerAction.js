@@ -7,7 +7,8 @@ export const userLogin=(request)=>async dispatch=>{
     })
     try{
         const response=await axios.post('http://localhost:3001/vehicles',request)
-        localStorage.setItem('customer',JSON.stringify(response.data))
+       
+        console.log(response.data)
         message.success('Login Successful')
         dispatch({
             type:'LOADING',
