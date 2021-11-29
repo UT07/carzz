@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import { NavbarContainer,LeftSection,MiddleSection,RightSection,LinkItems, LinksWrapper, NavLinksContainer } from '../../styles';
 import { Logo } from './Logo';
 export function Navbar(props){
     return <NavbarContainer>
         <LeftSection>
-            <Logo/>
+            <NavLink to='/home'>
+                <Logo/> 
+            </NavLink>    
         </LeftSection>
         <MiddleSection>
             <NavLinksContainer>
                 <LinksWrapper>
                     <LinkItems>
-                        <Link to='/rent'>Check Availability</Link>
+                        <Link to='/rent'>Edit Profile</Link>
                     </LinkItems>
                 </LinksWrapper>
             </NavLinksContainer>
