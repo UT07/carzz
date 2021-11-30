@@ -100,8 +100,7 @@ app.post("/signup",(request,response)=>{
 });
 app.post("/rental",(request,response)=>{
   
-  const CustID=request.body.CustID;
-  
+  const CustID=request.body.CustID;  
   const VehicleID=request.body.VehicleID;
   const StartDate=request.body.StartDate;
   const OrderDate=request.body.OrderDate;
@@ -122,6 +121,21 @@ app.post("/rental",(request,response)=>{
   }
     );
 });
+app.get('/rental',(request,response)=>{
+  const custID=request.body.CustID;
+  console.log(custID)
+  db.query("SELECT * FROM rental ",(err,res)=>{
+      if(err){
+          console.log(err);
+          response.send({err:err})    
+      }
+      else{
+        console.log(res);
+        response.send(res);
+      }
+  });
+});
+
 app.post("/login",(request,response)=>{
     const Phone=request.body.Phone;
     const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
@@ -146,16 +160,7 @@ app.post("/login",(request,response)=>{
         }
     );
 });
-app.get('/rental',(request,response)=>{
-  db.query("SELECT  * FROM rental",(err,res)=>{
-      if(err){
-          console.log(err);
-      }
-      else{
-          response.send(res);
-      }
-  });
-});
+
 
 app.get("/vehicles",(request,response)=>{
     db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
@@ -167,6 +172,8 @@ app.get("/vehicles",(request,response)=>{
         }
     });
 });
+
+
 
 
 app.listen(3001,()=>{

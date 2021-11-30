@@ -1,12 +1,13 @@
 import React, { useState,useEffect} from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { Navbar } from "../Components/Navbar";
+import { message } from "antd";
 import { Col, Row, Button,Divider, DatePicker, Checkbox, Modal } from "antd";
 import Spinner from "../Components/PageLoader";
 import { bookCars } from "../Redux/actions/rentalAction";
 import {getCars} from '../Redux/actions/vehicleAction';
 import Axios from "axios";
+import { useHistory } from "react-router-dom"; 
 import moment from "moment";
 const Switch=({val})=>{
   switch (val) {
@@ -38,7 +39,7 @@ const { RangePicker } = DatePicker;
   const [returnDate,setReturnDate]=useState([]);
   const [totalDays,setTotalDays]=useState(0);
   const [totalAmount,setTotalAmount]=useState(0);
-  
+  const history=useHistory();
   useEffect(()=>{
     
     if(cars.length===0){
@@ -62,6 +63,12 @@ const { RangePicker } = DatePicker;
     setStartDate(moment(val[0]).format('YYYY-MM-DD'));
     setReturnDate(moment(val[1]).format('YYYY-MM-DD'));
     setTotalDays(Math.floor((Math.abs(val[1]-val[0]))/(1000*60*60*24)))
+    Axios.get('http://localhost:3001/rental',{
+    }).then((res)=>{
+      console.log(res.data);
+    }).catch((err)=>{
+      console.log(err)
+    });
   }
   function book(val){
     const current = new Date();
@@ -78,15 +85,22 @@ const { RangePicker } = DatePicker;
       ReturnDate:returnDate,
       TotalAmount:totalAmount
     };
+    
     if (!isNaN(x[0].CustID)){
       Axios.post("http://localhost:3001/rental",req).then((res)=>
       {
+        dispatch({ type: "LOADING", payload: false });
+        message.success("Your car booked successfully");
         console.log(res.data)
+        history.push('/home')
+      }).catch((err)=>{
+        console.log(err);
+        dispatch({ type: "LOADING", payload: false });
+        message.error("Something went wrong , please try later");
       });
-    
+      }
     };
    
-    }
    return(
     <div>
       <Navbar/>
