@@ -170,12 +170,13 @@ app.post("/editCar",(request,response)=>{
       console.log(error);
   }
   else{
+    console.log(res)
       response.send(res);
   }
   });
 });
 app.get("/vehicles",(request,response)=>{
-    db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
+    db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID GROUP BY vehicle.VehicleID",(err,res)=>{
         if(err){
             console.log(err);
         }
@@ -184,6 +185,17 @@ app.get("/vehicles",(request,response)=>{
         }
     });
 });
+app.post("/deleteCar",(request,response)=>{
+  db.query(`DELETE FROM vehicle WHERE VehicleID='${request.body.VehicleID}'`,(error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+    console.log(res)
+      response.send(res);
+  }
+  });
+})
 app.post("/userBookings",(request,response)=>{
   const CustID=request.body.CustID;
   const query=`SELECT * FROM VEHICLE NATURAL JOIN IMAGES NATURAL JOIN RENTAL WHERE CustID=${CustID} GROUP BY VehicleID` ;

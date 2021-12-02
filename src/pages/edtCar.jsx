@@ -22,7 +22,9 @@ function EditCar({match}){
     }
   }, [cars]);
   function onFinish(val) {
-    Axios.post('http://localhost:3001/editCar',{VehicleID:val.VehicleID,Description:val.Description, Year:val.Year, Type:val.Type, Category:val.Category}).then((res)=>{
+    val.VehicleID = car.VehicleID;
+
+    Axios.post('http://localhost:3001/editCar',{VehicleID:localStorage.getItem('vehicleID'),Description:val.Description, Year:val.Year, Type:val.Type, Category:val.Category}).then((res)=>{
       
         message.success("Your car edited successfully");
         console.log(res.data)
@@ -49,9 +51,7 @@ function EditCar({match}){
                 <h3>Edit Car</h3>
 
                 <hr />
-                <Form.Item name='VehicleID' label='VehicleID' rules={[{required: true}]}>
-                    <Input/>
-                </Form.Item>
+            
                 <Form.Item name='Description' label='Description' rules={[{required: true}]}>
                     <Input/>
                 </Form.Item>
