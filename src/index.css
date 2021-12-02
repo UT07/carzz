@@ -161,6 +161,10 @@ a{
     
   
 }
+.btnz{
+  background-color: #CA0046 !important;
+  color: #ecf0f1 !important;
+}
 .boxx{
   font-size:30px;
   font-family: 'Montserrat', sans-serif;

@@ -63,6 +63,7 @@ const { RangePicker } = DatePicker;
     setStartDate(moment(val[0]).format('YYYY-MM-DD'));
     setReturnDate(moment(val[1]).format('YYYY-MM-DD'));
     setTotalDays(Math.floor((Math.abs(val[1]-val[0]))/(1000*60*60*24)))
+    console.log(startDate)
     Axios.get('http://localhost:3001/rental',{
     }).then((res)=>{
       console.log(res.data);
@@ -74,31 +75,57 @@ const { RangePicker } = DatePicker;
     const current = new Date();
     const today = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
     var x=JSON.parse(localStorage.getItem('customer'))
-    console.log(today)
-    const req={
-      
-      CustID:x[0].CustID,
-      VehicleID:car.VehicleID,
-      StartDate:startDate,
-      OrderDate:today,
-      RentalType:car.Type,
-      ReturnDate:returnDate,
-      TotalAmount:totalAmount
-    };
     
-    if (!isNaN(x[0].CustID)){
-      Axios.post("http://localhost:3001/rental",req).then((res)=>
-      {
-        dispatch({ type: "LOADING", payload: false });
-        message.success("Your car booked successfully");
-        console.log(res.data)
-        history.push('/home')
-      }).catch((err)=>{
-        console.log(err);
-        dispatch({ type: "LOADING", payload: false });
-        message.error("Something went wrong , please try later");
-      });
-      }
+    console.log(startDate)
+    if (totalDays<7){
+      const req={
+        CustID:x[0].CustID,
+        VehicleID:car.VehicleID,
+        StartDate:startDate,
+        OrderDate:today,
+        RentalType:1,
+        ReturnDate:returnDate,
+        TotalAmount:totalAmount
+      };
+      if (!isNaN(x[0].CustID)){
+        Axios.post("http://localhost:3001/rental",req).then((res)=>
+        {
+          dispatch({ type: "LOADING", payload: false });
+          message.success("Your car booked successfully");
+          console.log(res.data)
+          history.push('/home')
+        }).catch((err)=>{
+          console.log(err);
+          dispatch({ type: "LOADING", payload: false });
+          message.error("Something went wrong , please try later");
+        });
+        }
+    }
+    else{
+      const req={
+        CustID:x[0].CustID,
+        VehicleID:car.VehicleID,
+        StartDate:startDate,
+        OrderDate:today,
+        RentalType:7,
+        ReturnDate:returnDate,
+        TotalAmount:totalAmount
+      };
+      if (!isNaN(x[0].CustID)){
+        Axios.post("http://localhost:3001/rental",req).then((res)=>
+        {
+          dispatch({ type: "LOADING", payload: false });
+          message.success("Your car booked successfully");
+          console.log(res.data)
+          history.push('/home')
+        }).catch((err)=>{
+          console.log(err);
+          dispatch({ type: "LOADING", payload: false });
+          message.error("Something went wrong , please try later");
+        });
+        }
+    }
+   
     };
    
    return(
