@@ -180,7 +180,7 @@ app.post("/filter", (req,response)=>{
   const Category=req.body.Category;
   const StartDate=req.body.StartDate;
   const ReturnDate=req.body.ReturnDate;
-  const query = `SELECT DISTINCT * FROM VEHICLE NATURAL JOIN IMAGES NATURAL JOIN RATE NATURAL JOIN RENTAL WHERE Type=${Type} AND Category=${Category} AND VehicleID NOT IN (SELECT VEHICLEID FROM RENTAL WHERE ((StartDate>=${StartDate} AND StartDate<=${StartDate}) OR (ReturnDate>=${ReturnDate} AND ReturnDate<=${ReturnDate}))) GROUP BY VehicleID;`;
+  const query = `SELECT * FROM Vehicle NATURAL JOIN images WHERE Type=${Type} AND Category=${Category} AND VehicleID NOT IN (SELECT VEHICLEID FROM RENTAL WHERE (StartDate BETWEEN ${StartDate} AND ${ReturnDate} OR ReturnDate BETWEEN ${StartDate} AND ${ReturnDate}) )GROUP BY VehicleID;`;
   console.log(query)
   const result=db.query(query, (error,res)=>{
     if(error){

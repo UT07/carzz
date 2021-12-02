@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { Navbar } from "../Components/Navbar";
-import { message } from "antd";
+import { message,InputNumber } from "antd";
 import { Col, Row, Button,Divider, DatePicker, Checkbox, Modal } from "antd";
 import Spinner from "../Components/PageLoader";
 import { bookCars } from "../Redux/actions/rentalAction";
@@ -31,6 +31,7 @@ const Switch=({val})=>{
 
 const { RangePicker } = DatePicker;
  export function CarBook({match}){
+  const [keyboard, setKeyboard] = useState(true);
   const {cars}=useSelector(state=>state.carsReducer)
   const {loading}=useSelector(state=>state.alertsReducer)
   const dispatch=useDispatch()
@@ -39,6 +40,7 @@ const { RangePicker } = DatePicker;
   const [returnDate,setReturnDate]=useState([]);
   const [totalDays,setTotalDays]=useState(0);
   const [totalAmount,setTotalAmount]=useState(0);
+  const [Qty,setQty]=useState(1);
   const history=useHistory();
   useEffect(()=>{
     
@@ -165,6 +167,7 @@ const { RangePicker } = DatePicker;
           <RangePicker showTime={{format:'HH:mm'}} format='MMM DD yyyy HH:mm' onChange={selectTimeSlots}></RangePicker>
             <p>Total Days: <b>{totalDays}</b></p>  
             <h2>TotalAmount:$ <b>{isNaN(totalAmount)?0:totalAmount}</b></h2>
+          <InputNumber min={1} max={10} keyboard={keyboard} defaultValue={1} onChange={(val)=>{}} />  
             <Button type="primary" className="btn2" shape="round" 
               style={{background: "#CA0046",color:"aliceblue", boxShadow: "none",border:"1px solid", padding: "5px 15px", height:"50px",width:"50pxS" }} 
               shape="round" onClick={book}>Book Now </Button>
