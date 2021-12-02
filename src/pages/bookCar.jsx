@@ -2,7 +2,7 @@ import React, { useState,useEffect} from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { Navbar } from "../Components/Navbar";
 import { message,InputNumber } from "antd";
-import { Col, Row, Button,Divider, DatePicker, Checkbox, Modal } from "antd";
+import { Col, Row, Button,Divider, DatePicker, Select,Menu } from "antd";
 import Spinner from "../Components/PageLoader";
 import { bookCars } from "../Redux/actions/rentalAction";
 import {getCars} from '../Redux/actions/vehicleAction';
@@ -41,6 +41,7 @@ const { RangePicker } = DatePicker;
   const [totalDays,setTotalDays]=useState(0);
   const [totalAmount,setTotalAmount]=useState(0);
   const [Qty,setQty]=useState(1);
+  const [payNow,setPayNow]=useState(1);
   const history=useHistory();
   useEffect(()=>{
     
@@ -53,10 +54,10 @@ const { RangePicker } = DatePicker;
   },[cars])
   useEffect(()=>{
     if(totalDays<7){
-      setTotalAmount(totalDays*car.Daily)
+      setTotalAmount(Qty*totalDays*car.Daily)
     }
     else{
-      setTotalAmount(totalDays*car.Weekly)
+      setTotalAmount(Qty*totalDays*car.Weekly)
       // setTotalAmount(Math.floor(totalDays/7)*car.Weekly+Math.floor(totalDays%7)*car.Daily)         
     }
   },[totalDays])
@@ -73,63 +74,127 @@ const { RangePicker } = DatePicker;
       console.log(err)
     });
   }
+  const { Option } = Select;
   function book(val){
     const current = new Date();
     const today = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
     var x=JSON.parse(localStorage.getItem('customer'))
-    
+    console.log(Qty)
     console.log(startDate)
     if (totalDays<7){
-      const req={
-        CustID:x[0].CustID,
-        VehicleID:car.VehicleID,
-        StartDate:startDate,
-        OrderDate:today,
-        RentalType:1,
-        ReturnDate:returnDate,
-        TotalAmount:totalAmount
-      };
-      if (!isNaN(x[0].CustID)){
-        Axios.post("http://localhost:3001/rental",req).then((res)=>
-        {
-          dispatch({ type: "LOADING", payload: false });
-          message.success("Your car booked successfully");
-          console.log(res.data)
-          history.push('/home')
-        }).catch((err)=>{
-          console.log(err);
-          dispatch({ type: "LOADING", payload: false });
-          message.error("Something went wrong , please try later");
-        });
-        }
+      console.log(payNow)
+      console.log(totalAmount)
+      console.log(returnDate)
+      if(payNow==1){
+        const req={
+          CustID:x[0].CustID,
+          VehicleID:car.VehicleID,
+          StartDate:startDate,
+          OrderDate:today,
+          RentalType:1,
+          Qty:Qty,
+          ReturnDate:returnDate,
+          TotalAmount:totalAmount,
+          PaymentDate:today
+        };
+        if (!isNaN(x[0].CustID)){
+          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          {
+            dispatch({ type: "LOADING", payload: false });
+            message.success("Your car booked successfully");
+            console.log(res.data)
+            history.push('/home')
+          }).catch((err)=>{
+            console.log(err);
+            dispatch({ type: "LOADING", payload: false });
+            message.error("Something went wrong , please try later");
+          });
+          }
+      }
+      else{
+        const req={
+          CustID:x[0].CustID,
+          VehicleID:car.VehicleID,
+          StartDate:startDate,
+          OrderDate:today,
+          RentalType:1,
+          Qty:Qty,
+          ReturnDate:returnDate,
+          TotalAmount:totalAmount,
+          PaymentDate:null
+        };
+        if (!isNaN(x[0].CustID)){
+          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          {
+            dispatch({ type: "LOADING", payload: false });
+            message.success("Your car booked successfully");
+            console.log(res.data)
+            history.push('/home')
+          }).catch((err)=>{
+            console.log(err);
+            dispatch({ type: "LOADING", payload: false });
+            message.error("Something went wrong , please try later");
+          });
+          }
+      }
+      
     }
     else{
-      const req={
-        CustID:x[0].CustID,
-        VehicleID:car.VehicleID,
-        StartDate:startDate,
-        OrderDate:today,
-        RentalType:7,
-        ReturnDate:returnDate,
-        TotalAmount:totalAmount
-      };
-      if (!isNaN(x[0].CustID)){
-        Axios.post("http://localhost:3001/rental",req).then((res)=>
-        {
-          dispatch({ type: "LOADING", payload: false });
-          message.success("Your car booked successfully");
-          console.log(res.data)
-          history.push('/home')
-        }).catch((err)=>{
-          console.log(err);
-          dispatch({ type: "LOADING", payload: false });
-          message.error("Something went wrong , please try later");
-        });
-        }
-    }
+      if(payNow==1){
+        const req={
+          CustID:x[0].CustID,
+          VehicleID:car.VehicleID,
+          StartDate:startDate,
+          OrderDate:today,
+          RentalType:7,
+          Qty:Qty,
+          ReturnDate:returnDate,
+          TotalAmount:totalAmount,
+          PaymentDate:today
+        };
+        if (!isNaN(x[0].CustID)){
+          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          {
+            dispatch({ type: "LOADING", payload: false });
+            message.success("Your car booked successfully");
+            console.log(res.data)
+            history.push('/home')
+          }).catch((err)=>{
+            console.log(err);
+            dispatch({ type: "LOADING", payload: false });
+            message.error("Something went wrong , please try later");
+          });
+          }
+      }
+      else{
+        const req={
+          CustID:x[0].CustID,
+          VehicleID:car.VehicleID,
+          StartDate:startDate,
+          OrderDate:today,
+          RentalType:7,
+          Qty:Qty,
+          ReturnDate:returnDate,
+          TotalAmount:totalAmount,
+          PaymentDate:null
+        };
+        if (!isNaN(x[0].CustID)){
+          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          {
+            dispatch({ type: "LOADING", payload: false });
+            message.success("Your car booked successfully");
+            console.log(res.data)
+            history.push('/home')
+          }).catch((err)=>{
+            console.log(err);
+            dispatch({ type: "LOADING", payload: false });
+            message.error("Something went wrong , please try later");
+          });
+          }
+      }
    
     };
-   
+  }
    return(
     <div>
       <Navbar/>
@@ -167,7 +232,25 @@ const { RangePicker } = DatePicker;
           <RangePicker showTime={{format:'HH:mm'}} format='MMM DD yyyy HH:mm' onChange={selectTimeSlots}></RangePicker>
             <p>Total Days: <b>{totalDays}</b></p>  
             <h2>TotalAmount:$ <b>{isNaN(totalAmount)?0:totalAmount}</b></h2>
-          <InputNumber min={1} max={10} keyboard={keyboard} defaultValue={1} onChange={(val)=>{}} />  
+            <Row justify="space-around">
+            <InputNumber min={1} max={10} keyboard={keyboard} defaultValue={1} onChange={(val)=>{setQty(val)}} />  
+            <Select
+            style={{ width: 170 }}
+            placeholder="Payment Option"
+            optionFilterProp="children"
+            onChange={(val)=>{
+              setPayNow(val)
+            }}
+            filterOption={(input, option) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+          >
+            <Option value="1">PayNow</Option>
+            <Option value="0">PayLater</Option>
+
+          </Select>
+            </Row>
+          
             <Button type="primary" className="btn2" shape="round" 
               style={{background: "#CA0046",color:"aliceblue", boxShadow: "none",border:"1px solid", padding: "5px 15px", height:"50px",width:"50pxS" }} 
               shape="round" onClick={book}>Book Now </Button>

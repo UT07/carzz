@@ -32,49 +32,46 @@ db.on('error', function(err) {
       throw err;                                  
     }
   });
-  exports.register = async function(req,res){
-    var users={
-        "name":req.body.Name,
-        "phone":req.body.Phone
+
+app.post("/editCustomer",(request,response)=>{
+  const Name=request.body.Name;
+  const Phone=request.body.Phone;
+  const CustID=request.body.CustID;
+  const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
+  db.query(`UPDATE customer SET Name=${Name},Phone=${Phone} WHERE CustID=${CustID}`,(err,res)=>{
+    if(err){
+      console.log(err);
     }
-    db.query('INSERT INTO customer SET ?',users, function (error, results, fields) {
-        if (error) {
-          res.send({
-            "code":400,
-            "failed":"error ocurred"
-          })
-        } else {
-          res.send({
-            "code":200,
-            "success":"user registered sucessfully"
-              });
+    else{
+      response.send(res);
+    }
+  })
+})
+
+app.post("/login",(request,response)=>{
+  const Phone=request.body.Phone;
+  const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
+  
+  db.query(
+      "SELECT * FROM customer WHERE Phone=?",[newPhone],
+      (err,result)=>{
+          if(err){
+              response.send({err:err})    
           }
-      });
-}
-exports.login = async function(req,res){
-    var password = req.body.Phone;
-    connection.query('SELECT * FROM users WHERE Phone = ?',[Phone], async function (error, results, fields) {
-      if (error) {
-        res.send({
-          "code":400,
-          "failed":"error ocurred"
-        })
-      }else{
-        if(results.length >0){
-          const comparison = await bcrypt.compare(password, results[0].password)
-          if(comparison){
-              res.send({
-                "code":200,
-                "success":"login sucessfull"
-              })
+          try{
+              if(result.length> 0){   
+                  response.send(result);    
+              }
+              else{
+                  response.send({message:"Couldn't log in"});
+              }
           }
-        }
-        
+          catch{
+              console.log(err);
+          }
       }
-    });
-  }
-
-
+  );
+});
 app.post("/signup",(request,response)=>{
     const Name=request.body.Name;
     const Phone=request.body.Phone;
@@ -99,6 +96,7 @@ app.post("/signup",(request,response)=>{
         response.send({message:"Phone number not registered"});
     }
 });
+
 app.post("/rental",(request,response)=>{
   
   const CustID=request.body.CustID;  
@@ -106,12 +104,14 @@ app.post("/rental",(request,response)=>{
   const StartDate=request.body.StartDate;
   const OrderDate=request.body.OrderDate;
   const RentalType=request.body.RentalType;
+  const Qty=request.body.Qty;
   const ReturnDate=request.body.ReturnDate;
   const TotalAmount=request.body.TotalAmount;
+  const PaymentDate=request.body.PaymentDate;
   console.log(VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount)
   db.query(
-    "INSERT INTO rental(CustID,VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount) VALUES(?,?,?,?,?,?,?)",
-    [CustID,VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount],
+    "INSERT INTO rental VALUES(?,?,?,?,?,?,?,?,?)",
+    [CustID,VehicleID,StartDate,OrderDate,RentalType,Qty,ReturnDate,TotalAmount,PaymentDate],
     (err,result)=>{
       if (err) {
           console.log(err);
@@ -138,30 +138,7 @@ app.get('/rental',(request,response)=>{
   });
 });
 
-app.post("/login",(request,response)=>{
-    const Phone=request.body.Phone;
-    const newPhone='('+Phone.substring(0,3)+')'+' '+Phone.substring(3,6)+'-'+Phone.substring(6);
-    
-    db.query(
-        "SELECT * FROM customer WHERE Phone=?",[newPhone],
-        (err,result)=>{
-            if(err){
-                response.send({err:err})    
-            }
-            try{
-                if(result.length> 0){   
-                    response.send(result);    
-                }
-                else{
-                    response.send({message:"Couldn't log in"});
-                }
-            }
-            catch{
-                console.log(err);
-            }
-        }
-    );
-});
+
 
 
 app.get("/vehicles",(request,response)=>{
