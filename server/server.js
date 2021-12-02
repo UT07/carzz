@@ -162,7 +162,9 @@ app.post("/vehicles",(request,response)=>{
       response.send(res);
   }
   });
+  
 });
+
 app.get("/vehicles",(request,response)=>{
     db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
         if(err){

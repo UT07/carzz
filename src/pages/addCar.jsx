@@ -45,12 +45,7 @@ function addCar({match}){
                            <Form.Item name='Category' label='Category' rules={[{required: true}]}>
                                <Input/>
                            </Form.Item>
-                           <Form.Item name='Daily' label='Daily Rate' rules={[{required: true}]}>
-                               <Input/>
-                           </Form.Item>
-                           <Form.Item name='Weekly' label='Weekly Rate' rules={[{required: true}]}>
-                               <Input/>
-                           </Form.Item>
+                           
                            <div className='text-right'>
                            <button className='btn1' onClick={()=>{
                                
