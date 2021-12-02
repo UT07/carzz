@@ -17,6 +17,13 @@ export function Navbar(props){
                     </LinkItems>
                 </LinksWrapper>
             </NavLinksContainer>
+            <NavLinksContainer>
+                <LinksWrapper>
+                    <LinkItems>
+                        <Link to='/rent'>Return a Car</Link>
+                    </LinkItems>
+                </LinksWrapper>
+            </NavLinksContainer>
         </MiddleSection>
         <RightSection>
             <NavLinksContainer>

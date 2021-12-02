@@ -97,6 +97,19 @@ app.post("/signup",(request,response)=>{
     }
 });
 
+app.post('/booking',(request,response)=>{
+  const VehicleID=request.body.VehicleID;
+  db.query(`SELECT StartDate,ReturnDate FROM rental WHERE VehicleID='${VehicleID}' `,(err,res)=>{
+    if(err){
+      console.log(err);
+      response.send({err:err})    
+  }
+  else{
+    console.log(res);
+    response.send(res);
+  }
+  })
+})
 app.post("/rental",(request,response)=>{
   
   const CustID=request.body.CustID;  

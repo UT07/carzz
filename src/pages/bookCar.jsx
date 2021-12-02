@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { Navbar } from "../Components/Navbar";
-import { message,InputNumber } from "antd";
+import { message,InputNumber,Modal } from "antd";
 import { Col, Row, Button,Divider, DatePicker, Select,Menu } from "antd";
 import Spinner from "../Components/PageLoader";
 import { bookCars } from "../Redux/actions/rentalAction";
@@ -42,6 +42,8 @@ const { RangePicker } = DatePicker;
   const [totalAmount,setTotalAmount]=useState(0);
   const [Qty,setQty]=useState(1);
   const [payNow,setPayNow]=useState(1);
+  const [showModal,setShowModal]=useState(0);
+  const [slots,setSlots]=useState([]);
   const history=useHistory();
   useEffect(()=>{
     
@@ -61,6 +63,7 @@ const { RangePicker } = DatePicker;
       // setTotalAmount(Math.floor(totalDays/7)*car.Weekly+Math.floor(totalDays%7)*car.Daily)         
     }
   },[totalDays])
+  
 
   function selectTimeSlots(val){
     setStartDate(moment(val[0]).format('YYYY-MM-DD'));
@@ -194,13 +197,12 @@ const { RangePicker } = DatePicker;
       }
    
     };
-  }
+  }console.log(slots)
    return(
     <div>
       <Navbar/>
       {loading===true && (<Spinner/>)}
-      <Row justify="center" className="d-flex align-items-center" style={{minHeight
-      :'100vh'}}>
+      <Row justify="center" className="d-flex align-items-center" style={{minHeight:'100vh'}}>
         <Col lg={10} sm={24} xs={24}>
           <img src={car.imagescol} className="carimg2 bs1"/>
         </Col>
@@ -230,10 +232,12 @@ const { RangePicker } = DatePicker;
           
           <div align="right">
           <RangePicker showTime={{format:'HH:mm'}} format='MMM DD yyyy HH:mm' onChange={selectTimeSlots}></RangePicker>
+            <InputNumber min={1} max={10} keyboard={keyboard} defaultValue={1} onChange={(val)=>{setQty(val)
+            }} />  
             <p>Total Days: <b>{totalDays}</b></p>  
             <h2>TotalAmount:$ <b>{isNaN(totalAmount)?0:totalAmount}</b></h2>
-            <Row justify="space-around">
-            <InputNumber min={1} max={10} keyboard={keyboard} defaultValue={1} onChange={(val)=>{setQty(val)}} />  
+            <Row justify="space-around" className="d-flex align-items-end"style={{marginTop:50}}>
+            
             <Select
             style={{ width: 170 }}
             placeholder="Payment Option"
@@ -245,19 +249,53 @@ const { RangePicker } = DatePicker;
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
           >
-            <Option value="1">PayNow</Option>
-            <Option value="0">PayLater</Option>
+                <Option Option value="1">Pay Now</Option>
+                <Option value="0">Pay Later</Option>
 
-          </Select>
+              </Select>
             </Row>
-          
-            <Button type="primary" className="btn2" shape="round" 
-              style={{background: "#CA0046",color:"aliceblue", boxShadow: "none",border:"1px solid", padding: "5px 15px", height:"50px",width:"50pxS" }} 
-              shape="round" onClick={book}>Book Now </Button>
+            <Row justify="space-around" className="d-flex align-items-end"  style={{marginTop:50}}>
+              <button className="btn1 mt -2" onClick={()=>{
+                 Axios.post("http://localhost:3001/booking",{VehicleID:car.VehicleID}).then((res)=>{setSlots(res.data)});
+                 setShowModal(true)
+              }}>See Booked Slots</button>
+              <Button type="primary" className="btn2" shape="round" 
+                style={{background: "#CA0046",color:"aliceblue", boxShadow: "none",border:"1px solid", padding: "5px 15px", height:"50px",width:"50pxS" }} 
+                shape="round" onClick={book}>Book Now </Button>
+            
+            </Row>
+            
           </div>
 
         </Col>
       </Row>
+      <Modal visible={showModal} closable={false} footer={false} title='Booked Slots'>
+        {
+         
+         (<div>
+         {
+           slots.map((slot)=>{
+             return(
+              <Button className="btn1 mt-4">
+                {moment(slot.StartDate).format('YYYY-MM-DD')}-{moment(slot.ReturnDate).format('YYYY-MM-DD')}
+              </Button> 
+             );
+           }
+           )
+          }
+            <div className="text-right mt-5">
+                <button
+                  className="btn1"
+                  onClick={() => {
+                    setShowModal(false);
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+        </div>)} 
+
+      </Modal>
      </div>
      
    )
