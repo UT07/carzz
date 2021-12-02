@@ -164,7 +164,19 @@ app.get("/vehicles",(request,response)=>{
         }
     });
 });
-
+app.post("/userBookings",(request,response)=>{
+  const CustID=request.body.CustID;
+  const query=`SELECT * FROM VEHICLE NATURAL JOIN IMAGES NATURAL JOIN RENTAL WHERE CustID=${CustID} GROUP BY VehicleID` ;
+  console.log(query)
+  db.query(query,(error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+})
 app.post("/filter", (req,response)=>{
   const Type=req.body.Type;
   const Category=req.body.Category;

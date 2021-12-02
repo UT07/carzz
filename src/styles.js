@@ -104,10 +104,13 @@ export const LeftSection=styled.div`
 `;
 export const MiddleSection=styled.div`
     display:flex;
-    flex:2;
+    flex:1;
 `;
 export const RightSection=styled.div`
     display:flex;
+    flex:2
+    align-items:end;
+    margin-right:150px;
 `;
 
 

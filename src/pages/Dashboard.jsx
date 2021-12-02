@@ -113,10 +113,7 @@ function Dashboard(props){
       dispatch(getCars())
       
   },[])
-  useEffect(()=>{
- 
-    
-},[])
+  
   
   function setFilter(values){
    setStartDate(moment(values[0]).format('YYYY-MM-DD'));

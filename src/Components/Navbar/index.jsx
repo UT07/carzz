@@ -2,7 +2,44 @@ import React from 'react';
 import { Link,NavLink } from 'react-router-dom';
 import { NavbarContainer,LeftSection,MiddleSection,RightSection,LinkItems, LinksWrapper, NavLinksContainer } from '../../styles';
 import { Logo } from './Logo';
+import { Menu, Dropdown, Button, Space , Row , Col } from "antd";
 export function Navbar(props){
+    const user = JSON.parse(localStorage.getItem('customer'))
+    
+    const menu = (
+      <Menu>
+          <Menu.Item>
+        <a
+         
+          href="/"
+        >
+          Home
+        </a>
+      </Menu.Item>
+        <Menu.Item>
+          <a
+            
+            href="/booking"
+          >
+            Bookings
+          </a>
+        </Menu.Item>
+        <Menu.Item>
+          <a
+           
+            href="/admin"
+          >
+            Admin
+          </a>
+        </Menu.Item>
+        <Menu.Item onClick={()=>{
+            localStorage.removeItem('user');
+            window.location.href='/'
+        }}>
+            <li style={{color:"#CA0046"}}>Logout</li>
+        </Menu.Item>
+      </Menu>
+    );
     return <NavbarContainer>
         <LeftSection>
             <NavLink to='/home'>
@@ -13,13 +50,6 @@ export function Navbar(props){
             <NavLinksContainer>
                 <LinksWrapper>
                     <LinkItems>
-                        <Link to='/rent'>Edit Profile</Link>
-                    </LinkItems>
-                </LinksWrapper>
-            </NavLinksContainer>
-            <NavLinksContainer>
-                <LinksWrapper>
-                    <LinkItems>
                         <Link to='/rent'>Return a Car</Link>
                     </LinkItems>
                 </LinksWrapper>
@@ -27,12 +57,10 @@ export function Navbar(props){
         </MiddleSection>
         <RightSection>
             <NavLinksContainer>
-                    <LinksWrapper>
-                        <LinkItems>
-                            <Link to='/'>Sign Out</Link>
-                        </LinkItems>
-                    </LinksWrapper>
-                </NavLinksContainer>
+                <Dropdown overlay={menu} placement="bottomRight" >
+                    <Button>{user[0].Name}</Button>
+                </Dropdown>
+            </NavLinksContainer> 
         </RightSection>
 
     </NavbarContainer>
