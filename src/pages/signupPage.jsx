@@ -40,7 +40,7 @@ function Register() {
                 ConfirmPhone:confirmPhoneNumberRegister
             }).then((res)=>
             {
-                if(res.data["message"]!="Phone number not registered"){
+                if(res.data["message"]!=="Phone number not registered"){
                     history.push('/home')
                 }
                 else{

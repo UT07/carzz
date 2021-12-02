@@ -11,7 +11,7 @@ export function Navbar(props){
           <Menu.Item>
         <a
          
-          href="/"
+          href="/home"
         >
           Home
         </a>

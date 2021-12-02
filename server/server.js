@@ -153,7 +153,16 @@ app.get('/rental',(request,response)=>{
 
 
 
-
+app.post("/vehicles",(request,response)=>{
+  db.query(`INSERT INTO Vehicle VALUES('${request.body.VehicleID}','${request.body.Description}',${request.body.Year},${request.body.Type},${request.body.Category})`,(err,res)=>{
+    if(err){
+      console.log(err);
+  }
+  else{
+      response.send(res);
+  }
+  });
+});
 app.get("/vehicles",(request,response)=>{
     db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
         if(err){

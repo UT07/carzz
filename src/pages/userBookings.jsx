@@ -65,7 +65,7 @@ function UserBookings(props){
                        return <Row gutter={16} className="bs1 mt-3 text-left">
                                 <Col lg={6} sm={24}>
                                     <Row>
-                                    <p><b>{booking.Description}</b></p>
+                                    <p><b>{booking.Description} {booking.Year}</b></p>
                                     {
                                          booking.Category===1?
                                         <div>
