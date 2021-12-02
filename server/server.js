@@ -164,7 +164,16 @@ app.post("/vehicles",(request,response)=>{
   });
   
 });
-
+app.post("/editCar",(request,response)=>{
+  db.query(`UPDATE vehicle SET Description='${request.body.Description}',Year=${request.body.Year},Type=${request.body.Type},Category=${request.body.Category} WHERE VehicleID='${request.body.VehicleID}'`,(error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+});
 app.get("/vehicles",(request,response)=>{
     db.query("SELECT DISTINCT * FROM vehicle, rate,images WHERE vehicle.Category=rate.Category AND vehicle.Type=rate.Type AND vehicle.VehicleID=images.VehicleID",(err,res)=>{
         if(err){
