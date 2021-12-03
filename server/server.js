@@ -353,7 +353,8 @@ app.post("/filter", (req,response)=>{
   
 });
 
+const PORT=process.env.PORT||'3001'
 
-app.listen(3001,()=>{
+app.listen(PORT,()=>{
     console.log("running server");
 });
