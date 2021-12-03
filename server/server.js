@@ -125,8 +125,8 @@ app.post("/rental",(request,response)=>{
   const returned=request.body.returned
   console.log(VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount)
   db.query(
-    "INSERT INTO rental VALUES(?,?,?,?,?,?,?,?,?,?)",
-    [CustID,VehicleID,StartDate,OrderDate,RentalType,Qty,ReturnDate,TotalAmount,PaymentDate,returned],
+    "INSERT INTO rental VALUES(?,?,?,?,?,?,?,?,?,0)",
+    [CustID,VehicleID,StartDate,OrderDate,RentalType,Qty,ReturnDate,TotalAmount,PaymentDate],
     (err,result)=>{
       if (err) {
           console.log(err);

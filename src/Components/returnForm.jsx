@@ -15,7 +15,7 @@ function ReturnCar({match}){
    const [amount,setAmount]=useState('');
    const [data,setData]=useState([]);
    const init=()=>{
-
+    console.log(localStorage.getItem('VIN'))
     console.log(data)
     Axios.post('http://localhost:3001/vehicleNoFilterSearch').then((res)=>{
       console.log(moment(res.data[0].ReturnDate).format('YYYY-MM-DD'))
@@ -41,7 +41,7 @@ function ReturnCar({match}){
    const onFinish=(val)=>{
     const current = new Date();
     const today = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-    Axios.post('http://localhost:3001/returnCar',{PaymentDate:today,VehicleID:val.VehicleID, ReturnDate:moment(val.ReturnDate).format('YYYY-MM-DD')}).then((res)=>{
+    Axios.post('http://localhost:3001/returnCar',{PaymentDate:today,VehicleID:localStorage.getItem('VIN'), ReturnDate:moment(val.ReturnDate).format('YYYY-MM-DD')}).then((res)=>{
       
         message.success("Your car returned successfully");
         console.log(res.data)      
@@ -96,9 +96,7 @@ function ReturnCar({match}){
                            <Form.Item name='Name' label='Enter your name' rules={[{required: true}]}>
                                <Input/>
                            </Form.Item>
-                           <Form.Item name='VehicleID' label='Enter Vehicle ID' rules={[{required: true}]}>
-                               <Input/>
-                           </Form.Item>
+                           
                            
                          
                            
