@@ -4,7 +4,7 @@ const express=require("express");
 const mysql=require("mysql");
 const app=express();
 const cors=require('cors');
-const { response } = require('express');
+const { response, request } = require('express');
 app.use(express.json());
 app.use(cors());
 
@@ -153,7 +153,16 @@ app.get('/rental',(request,response)=>{
 });
 
 
-
+app.post("/returnCar",(request,response)=>{
+  db.query(`UPDATE RENTAL SET PaymentDate='${request.body.PaymentDate}',returned=1 WHERE VehicleID='${request.body.VehicleID}' AND ReturnDate='${request.body.ReturnDate}'`,(err,res)=>{
+    if(err){
+      console.log(err);
+  }
+  else{
+      response.send(res);
+  }
+  })
+})
 app.post("/vehicles",(request,response)=>{
   db.query(`INSERT INTO Vehicle VALUES('${request.body.VehicleID}','${request.body.Description}',${request.body.Year},${request.body.Type},${request.body.Category})`,(err,res)=>{
     if(err){
