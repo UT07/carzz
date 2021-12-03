@@ -6,6 +6,7 @@ const app=express();
 const cors=require('cors');
 const { response, request } = require('express');
 app.use(express.json());
+var serveStatic = require('serve-static')
 app.use(cors());
 const path=require('path')
 if(process.env.NODE_ENV==='production'){
@@ -15,7 +16,11 @@ if(process.env.NODE_ENV==='production'){
   })
 }
 
+app.use(serveStatic(path.join(__dirname, 'dist')))
 
+var port = process.env.PORT || 8000
+app.listen(port)
+console.log('server started ' + port)
 
 const db=mysql.createConnection({
     user:"root",
