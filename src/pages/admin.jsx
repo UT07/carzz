@@ -84,55 +84,22 @@ function Admin(props){
       <Row justify="center" gutter={16} className="mt-2">
         <Col lg={20} sm={24}>
           <div className="d-flex justify-content-between align-items-center">
-            <h3 className="mt-1 mr-2">Admin Panel</h3>
+            <h1 className="mt-1 mr-2">Admin Panel</h1>
+            <Row justify="space-around" gutter={16} className="mt-2">
+            <button type="primary" className="btn1" >
+              <a href="/customerList"> Customer Log</a>
+            </button>  
             <button type="primary" className="btn1" >
               <a href="/addcar">Add Car</a>
             </button>
+            </Row>
+
+            
           </div>
         </Col>
       </Row>
 
-      {/* <Row className='mt-3' justify='space-around'> 
       
-          <RangePicker onChange={setFilter}/>
-          <Select
-            style={{ width: 200 }}
-            placeholder="Select a car type"
-            optionFilterProp="children"
-            onChange={(val)=>{
-              setType(val)
-            }}
-            filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          >
-            <Option value="1">Compact</Option>
-            <Option value="2">Medium</Option>
-            <Option value="3">Large</Option>
-            <Option value="4">SUV</Option>
-            <Option value="5">Truck</Option>
-            <Option value="6">VAN</Option>
-          </Select>
-          <Select
-            style={{ width: 200 }}
-            placeholder="Select car Category"
-            optionFilterProp="children"
-            onChange={(val)=>{
-              setCategory(val)
-            }}
-            filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          >
-            <Option value="0">Basic</Option>
-            <Option value="1">Luxury</Option>
-         
-          </Select>
-          <Button type="primary" className='btnz' icon={<SearchOutlined />} onClick={onChange}>
-            Search
-        </Button>
-      </Row>
-   */}
       {<Row justify="center" gutter={40} className='mt-4'>
         {
           cars.map(car=>{

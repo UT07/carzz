@@ -10,12 +10,16 @@ import addCar from './pages/addCar';
 import EditCar from './pages/edtCar';
 import Admin from './pages/admin';
 import 'antd/dist/antd.css';
+import CustomerList from './pages/customerList';
+import VehicleList from './pages/vehicleList';
 function App() {
   return(
     <Router>
         <Switch>
           <Route exact path='/booking'><UserBookings/></Route>
           <Route exact path='/' component={Login}></Route>
+          <Route exact path='/customerList' component={CustomerList}></Route>
+          <Route exact path='/vehicleList' component={VehicleList}></Route>
           <Route exact path='/signup'><Register/></Route>
           <Route exact path='/home'><Dashboard/></Route>
           <Route exact path='/admin' component={Admin}></Route>

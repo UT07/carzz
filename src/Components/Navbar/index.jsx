@@ -33,7 +33,7 @@ export function Navbar(props){
           </a>
         </Menu.Item>
         <Menu.Item onClick={()=>{
-            localStorage.removeItem('user');
+            localStorage.removeItem('customer');
             window.location.href='/'
         }}>
             <li style={{color:"#CA0046"}}>Logout</li>

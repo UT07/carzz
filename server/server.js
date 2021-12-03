@@ -4,6 +4,7 @@ const express=require("express");
 const mysql=require("mysql");
 const app=express();
 const cors=require('cors');
+const { response } = require('express');
 app.use(express.json());
 app.use(cors());
 
@@ -195,7 +196,106 @@ app.post("/deleteCar",(request,response)=>{
       response.send(res);
   }
   });
+});
+app.post("/filterCustomerSearchID",(request,response)=>{
+  db.query(`SELECT distinct CustID,Name,CASE WHEN returned=0 THEN TotalAmount ELSE 0 END as 'Balance' FROM rental NATURAL JOIN customer WHERE CustID=${request.body.CustID} ORDER BY Name ASC`,(error,res)=>{
+    if(error){
+      console.log(error);
+    }
+    else{
+      response.send(res);
+    }
+
+  });
+});
+app.post("/customerSearch",(request,response)=>{
+  const query=
+  db.query("SELECT distinct CustID,Name,CASE WHEN returned=0 THEN TotalAmount ELSE 0 END as 'Balance' FROM rental NATURAL JOIN customer ORDER BY Name ASC",(error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+    console.log(res)
+      response.send(res);
+  }
+  });
+});
+app.post("/nameSearch",(request,response)=>{
+  const Name=request.body.Name;
+  const query=`SELECT distinct CustID,Name,CASE WHEN returned=0 THEN TotalAmount ELSE 0 END as 'Balance' FROM rental NATURAL JOIN customer WHERE Name LIKE '%${Name}%'ORDER BY Name ASC;`
+  db.query(query,(error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+});
+app.post("/vehicleNameSearch",(request,response)=>{
+  const Name=request.body.Name;
+  const query = `SELECT * FROM rentalinformations where vehicle like '%${Name}%' `;
+  console.log(query)
+  const result=db.query(query, (error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
 })
+app.post("/vehicleNameSearch",(request,response)=>{
+  const Name=request.body.Name;
+  const query = `SELECT * FROM rentalinformations where vehicle like '%${Name}%' `;
+  console.log(query)
+  const result=db.query(query, (error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+})
+app.post("/vinSearch",(request,response)=>{
+  const Name=request.body.Name;
+  const query = `SELECT * FROM rentalinformations where VIN like '%${Name}%' `;
+  console.log(query)
+  const result=db.query(query, (error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+});
+app.post("/vehicleNoFilterSearch",(request,response)=>{
+  
+  const query = `SELECT * FROM rentalinformations `;
+  console.log(query)
+  const result=db.query(query, (error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+})
+app.post("/balanceSearch",(request,response)=>{
+  const Balance=request.body.Balance;
+  const query=`SELECT distinct CustID,Name,CASE WHEN returned=0 THEN TotalAmount ELSE 0 END as 'Balance' FROM rental NATURAL JOIN customer WHERE TotalAmount=${Balance} ORDER BY Name ASC;`
+  db.query(query,(error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+});
 app.post("/userBookings",(request,response)=>{
   const CustID=request.body.CustID;
   const query=`SELECT * FROM VEHICLE NATURAL JOIN IMAGES NATURAL JOIN RENTAL WHERE CustID=${CustID} GROUP BY VehicleID` ;
