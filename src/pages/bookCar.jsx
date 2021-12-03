@@ -88,7 +88,8 @@ const { RangePicker } = DatePicker;
       console.log(payNow)
       console.log(totalAmount)
       console.log(returnDate)
-      if(payNow==1){
+      if(payNow==1 && car.PaymentDate===null){
+        
         const req={
           CustID:x[0].CustID,
           VehicleID:car.VehicleID,
@@ -98,7 +99,8 @@ const { RangePicker } = DatePicker;
           Qty:Qty,
           ReturnDate:returnDate,
           TotalAmount:totalAmount,
-          PaymentDate:today
+          PaymentDate:today,
+          returned:0
         };
         if (!isNaN(x[0].CustID)){
           Axios.post("http://localhost:3001/rental",req).then((res)=>
@@ -124,7 +126,8 @@ const { RangePicker } = DatePicker;
           Qty:Qty,
           ReturnDate:returnDate,
           TotalAmount:totalAmount,
-          PaymentDate:null
+          PaymentDate:null,
+          returned:1
         };
         if (!isNaN(x[0].CustID)){
           Axios.post("http://localhost:3001/rental",req).then((res)=>
@@ -153,7 +156,8 @@ const { RangePicker } = DatePicker;
           Qty:Qty,
           ReturnDate:returnDate,
           TotalAmount:totalAmount,
-          PaymentDate:today
+          PaymentDate:today,
+          returned:0
         };
         if (!isNaN(x[0].CustID)){
           Axios.post("http://localhost:3001/rental",req).then((res)=>
@@ -179,7 +183,8 @@ const { RangePicker } = DatePicker;
           Qty:Qty,
           ReturnDate:returnDate,
           TotalAmount:totalAmount,
-          PaymentDate:null
+          PaymentDate:null,
+          returnDate:1
         };
         if (!isNaN(x[0].CustID)){
           Axios.post("http://localhost:3001/rental",req).then((res)=>

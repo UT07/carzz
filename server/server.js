@@ -122,10 +122,11 @@ app.post("/rental",(request,response)=>{
   const ReturnDate=request.body.ReturnDate;
   const TotalAmount=request.body.TotalAmount;
   const PaymentDate=request.body.PaymentDate;
+  const returned=request.body.returned
   console.log(VehicleID,StartDate,OrderDate,RentalType,ReturnDate,TotalAmount)
   db.query(
-    "INSERT INTO rental VALUES(?,?,?,?,?,?,?,?,?)",
-    [CustID,VehicleID,StartDate,OrderDate,RentalType,Qty,ReturnDate,TotalAmount,PaymentDate],
+    "INSERT INTO rental VALUES(?,?,?,?,?,?,?,?,?,?)",
+    [CustID,VehicleID,StartDate,OrderDate,RentalType,Qty,ReturnDate,TotalAmount,PaymentDate,returned],
     (err,result)=>{
       if (err) {
           console.log(err);
@@ -183,6 +184,16 @@ app.post("/editCar",(request,response)=>{
     console.log(res)
       response.send(res);
   }
+  });
+});
+app.get("/returnCarView",(request,response)=>{
+  db.query("SELECT * FROM rentalinformations WHERE RemainingBalance<>0",(err,res)=>{
+      if(err){
+          console.log(err);
+      }
+      else{
+          response.send(res);
+      }
   });
 });
 app.get("/vehicles",(request,response)=>{

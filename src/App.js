@@ -13,6 +13,7 @@ import 'antd/dist/antd.css';
 import CustomerList from './pages/customerList';
 import VehicleList from './pages/vehicleList';
 import ReturnCar from './Components/returnForm';
+import ReturnCarPage from './pages/returnPage';
 function App() {
   return(
     <Router>
@@ -25,6 +26,7 @@ function App() {
           <Route exact path='/home'><Dashboard/></Route>
           <Route exact path='/admin' component={Admin}></Route>
           <Route exact path='/addCar'  component={addCar}></Route>
+          <Route exact path='/returnCar'  component={ReturnCarPage}></Route>
           <Route path='/returnCar/:VehicleID' render={(props)=><ReturnCar{...props}/>}/>
           <Route path='/rent/:VehicleID' render={(props)=><CarBook{...props}/>}/>
           <Route path='/editCar/:VehicleID' render={(props)=><EditCar{...props}/>}/>

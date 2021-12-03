@@ -50,7 +50,7 @@ export function Navbar(props){
             <NavLinksContainer>
                 <LinksWrapper>
                     <LinkItems>
-                        <Link to='/rent'>Return a Car</Link>
+                        <Link to='/returnCar'>Return a Car</Link>
                     </LinkItems>
                 </LinksWrapper>
             </NavLinksContainer>

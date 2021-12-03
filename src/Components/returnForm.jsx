@@ -103,7 +103,7 @@ function ReturnCar({match}){
                          
                            
                            <div className='text-right'>
-                               <h3> </h3>
+                               <h3>Remaining Amount: ${amount} </h3>
                            <button className='btn1' >RETURN CAR</button>
                            </div>
                        </Form>
