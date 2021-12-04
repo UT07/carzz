@@ -17,7 +17,7 @@ function ReturnCar({match}){
    const init=()=>{
     console.log(localStorage.getItem('VIN'))
     console.log(data)
-    Axios.post('http://localhost:3001/vehicleNoFilterSearch').then((res)=>{
+    Axios.post('http://localhost:3001/vinSearch',{Name:localStorage.getItem('VIN')}).then((res)=>{
       console.log(moment(res.data[0].ReturnDate).format('YYYY-MM-DD'))
       // console.log(res.data.some(element => moment(element.ReturnDate).format('YYYY-MM-DD')===dates))
       setData(res.data);
@@ -55,6 +55,7 @@ function ReturnCar({match}){
    const onFinishFailed=()=>{
 
    }
+   console.log(amount)
 
     return(    
         <div>
@@ -75,13 +76,15 @@ function ReturnCar({match}){
                                     console.log(moment(res.data[0].ReturnDate).format('YYYY-MM-DD'))
                                     // console.log(res.data.some(element => moment(element.ReturnDate).format('YYYY-MM-DD')===dates))
                                     setData(res.data);
-                                    
+                            
                                     var x =(data.map(o=>moment(o.ReturnDate).format('YYYY-MM-DD')))
                                     for(var i=0;i<x.length;i++){
                                         if(moment(date._d).format('YYYY-MM-DD')==x[i]){
                                           
                                             setVIN(res.data[i].VIN);
+                                            console.log(res.data[i].RemainingBalance)
                                             setAmount(res.data[i].RemainingBalance)
+                                            
 
                                         }
                                     }
