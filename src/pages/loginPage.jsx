@@ -38,7 +38,7 @@ function Login() {
       }
     const loginUser=()=>{
         if(!isNaN(parseInt(phoneNumber))){
-            Axios.post("https://carz3330.netlify.app/login",
+            Axios.post("http://localhost:3001/login",
             {
                 Phone:phoneNumber
             }).then((res)=>
