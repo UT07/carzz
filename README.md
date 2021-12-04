@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with CARZ 3330 App
 
 The UI project is made on react and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
