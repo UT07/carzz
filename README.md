@@ -1,12 +1,12 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The UI project is made on react and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+To create the backend Node.js server we use ### `npm init` and fill the project details when asked in package.json file.
 
-In the project directory, you can run:
+To start the UI development server we execute ### `npm start`
+To enable the server even after crashing we installed nodemon package which runs the server regardless of the error response. To execute the server with nodemon we used ### `npx nodemon server.js` command.
 
-### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
