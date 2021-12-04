@@ -6,20 +6,20 @@ const app=express();
 const cors=require('cors');
 const { response, request } = require('express');
 app.use(express.json());
-var serveStatic = require('serve-static')
-app.use(cors());
-const path=require('path')
-if(process.env.NODE_ENV==='production'){
-  app.use('/',express.static('client/build'))
-  app.get('/', function(req, res){
-    res.redirect('/todo');
- });
-  app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'client/build/index.html'))
-  })
-}
+// var serveStatic = require('serve-static')
+// app.use(cors());
+// const path=require('path')
+// if(process.env.NODE_ENV==='production'){
+//   app.use('/',express.static('client/build'))
+//   app.get('/', function(req, res){
+//     res.redirect('/todo');
+//  });
+//   app.get('*',(req,res)=>{
+//     res.sendFile(path.resolve(__dirname,'client/build/index.html'))
+//   })
+// }
 
-app.use(serveStatic(path.join(__dirname, 'dist')))
+// app.use(serveStatic(path.join(__dirname, 'dist')))
 
 var port = process.env.PORT || 8000
 app.listen(port)
