@@ -266,19 +266,7 @@ app.post("/nameSearch",(request,response)=>{
   }
   });
 });
-app.post("/vehicleNameSearch",(request,response)=>{
-  const Name=request.body.Name;
-  const query = `SELECT * FROM rentalinformations where vehicle like '%${Name}%' `;
-  console.log(query)
-  const result=db.query(query, (error,res)=>{
-    if(error){
-      console.log(error);
-  }
-  else{
-      response.send(res);
-  }
-  });
-})
+
 app.post("/vehicleNameSearch",(request,response)=>{
   const Name=request.body.Name;
   const query = `SELECT * FROM rentalinformations where vehicle like '%${Name}%' `;
@@ -320,7 +308,7 @@ app.post("/vehicleNoFilterSearch",(request,response)=>{
 })
 app.post("/balanceSearch",(request,response)=>{
   const Balance=request.body.Balance;
-  const query=`SELECT distinct CustID,Name,CASE WHEN returned=0 THEN TotalAmount ELSE 0 END as 'Balance' FROM rental NATURAL JOIN customer WHERE TotalAmount=${Balance} ORDER BY Name ASC;`
+  const query=`SELECT  CustID,Name,CASE WHEN returned=0 THEN TotalAmount ELSE 0 END as 'Balance' FROM rental NATURAL JOIN customer WHERE TotalAmount=${Balance} ORDER BY Name ASC;`
   db.query(query,(error,res)=>{
     if(error){
       console.log(error);
