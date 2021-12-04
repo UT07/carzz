@@ -209,7 +209,7 @@ app.post("/editCar",(request,response)=>{
   });
 });
 app.get("/returnCarView",(request,response)=>{
-  db.query("SELECT * FROM rental WHERE returned<>0",(err,res)=>{
+  db.query("SELECT * FROM rentalinformation WHERE  RemainingBalance<>0",(err,res)=>{
       if(err){
           console.log(err);
       }
