@@ -93,7 +93,7 @@ function Register() {
 
                          <hr />
 
-                         <Link to='/login'>Click Here to Login</Link>
+                         <Link to='/'>Click Here to Login</Link>
                        
 
                     </Form>
