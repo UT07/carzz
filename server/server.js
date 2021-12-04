@@ -177,6 +177,14 @@ app.post("/returnCar",(request,response)=>{
       response.send(res);
   }
   })
+  db.query(`UPDATE rentalinformation SET RemainingBalance=0 WHERE VehicleID='${request.body.VehicleID}' AND ReturnDate='${request.body.ReturnDate}'`,(err,res)=>{
+    if(err){
+      console.log(err);
+  }
+  else{
+      response.send(res);
+  }
+  })
 })
 app.post("/vehicles",(request,response)=>{
   db.query(`INSERT INTO Vehicle VALUES('${request.body.VehicleID}','${request.body.Description}',${request.body.Year},${request.body.Type},${request.body.Category})`,(err,res)=>{
@@ -201,7 +209,7 @@ app.post("/editCar",(request,response)=>{
   });
 });
 app.get("/returnCarView",(request,response)=>{
-  db.query("SELECT * FROM rentalinformations WHERE RemainingBalance<>0",(err,res)=>{
+  db.query("SELECT * FROM rental WHERE returned<>0",(err,res)=>{
       if(err){
           console.log(err);
       }
