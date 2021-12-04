@@ -34,7 +34,7 @@ function UserBookings(props){
     var x=localStorage.getItem('customer')
     const init=()=>{
         loading===true && (<Spinner/>)
-        Axios.post("https://carz3330.netlify.app/userBookings",{CustID:x.substring(11,14)}).then((res)=>{
+        Axios.post("http://localhost:3001/userBookings",{CustID:x.substring(11,14)}).then((res)=>{
             console.log(res.data)
             setBookings(res.data)
         })

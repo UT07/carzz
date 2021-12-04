@@ -3,7 +3,7 @@ import { message } from "antd";
 export const bookCars=(req)=>async (dispatch)=>{
     dispatch({type:'LOADING',payload:true})
     try{
-       await axios.post('https://carz3330.netlify.app/rental')
+       await axios.post('http://localhost:3001/rental')
         dispatch({
             type:'LOADING',
             payload:false

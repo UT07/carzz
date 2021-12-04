@@ -40,7 +40,7 @@ function VehicleList(props){
     var x=localStorage.getItem('customer')
     const init=()=>{
         loading===true && (<Spinner/>)
-        Axios.post("https://carz3330.netlify.app/vehicleNoFilterSearch").then((res)=>{
+        Axios.post("http://localhost:3001/vehicleNoFilterSearch").then((res)=>{
             console.log(res.data)
             setCustomerList(res.data)
         })
@@ -57,25 +57,25 @@ function VehicleList(props){
            <h1  style={{textAlign:"center", color:"#CA0046"}}>Customer Log</h1>
            <Input  addonAfter={selectAfter} onPressEnter={(val)=>{
                if(filter==="VIN"){
-                   Axios.post("https://carz3330.netlify.app/vinSearch",{Name:val.target.value}).then((res)=>{
+                   Axios.post("http://localhost:3001/vinSearch",{Name:val.target.value}).then((res)=>{
                    console.log(res.data) 
                    setCustomerList(res.data);
                    });
                }
                if(filter==="noFilter"){
-                Axios.post("https://carz3330.netlify.app/vehicleNoFilterSearch").then((res)=>{
+                Axios.post("http://localhost:3001/vehicleNoFilterSearch").then((res)=>{
                     console.log(res.data)
                     setCustomerList(res.data)
                 });
                }
                if(filter==="Name"){
-                Axios.post("https://carz3330.netlify.app/vehicleNameSearch",{Name:val.target.value}).then((res)=>{
+                Axios.post("http://localhost:3001/vehicleNameSearch",{Name:val.target.value}).then((res)=>{
                     console.log(res.data)
                     setCustomerList(res.data)
                 });
                }
                if(filter==="Balance"){
-                Axios.post("https://carz3330.netlify.app/balanceSearch",{Balance:val.target.value}).then((res)=>{
+                Axios.post("http://localhost:3001/balanceSearch",{Balance:val.target.value}).then((res)=>{
                     console.log(res.data)
                     setCustomerList(res.data)
                 });

@@ -6,7 +6,7 @@ export const getCars=()=>async dispatch=>{
         payload:true
     })
     try{
-        const response=await axios.get('https://carz3330.netlify.app/vehicles')
+        const response=await axios.get('http://localhost:3001/vehicles')
         dispatch({
             type:'GET_ALL_CARS',
             payload:response.data

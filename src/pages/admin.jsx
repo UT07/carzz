@@ -138,7 +138,7 @@ function Admin(props){
 
                     <Popconfirm
                       title="Are you sure to delete this car?"
-                      onConfirm={()=>{Axios.post('https://carz3330.netlify.app/deleteCar',{VehicleID:localStorage.getItem('vehicleID')}).then((res)=>{
+                      onConfirm={()=>{Axios.post('http://localhost:3001/deleteCar',{VehicleID:localStorage.getItem('vehicleID')}).then((res)=>{
                         message.success("Your car edited successfully");
                         console.log(res.data)
        

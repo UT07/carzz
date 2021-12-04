@@ -17,7 +17,7 @@ function ReturnCar({match}){
    const init=()=>{
     console.log(localStorage.getItem('VIN'))
     console.log(data)
-    Axios.post('https://carz3330.netlify.app/vinSearch',{Name:localStorage.getItem('VIN')}).then((res)=>{
+    Axios.post('http://localhost:3001/vinSearch',{Name:localStorage.getItem('VIN')}).then((res)=>{
       console.log(moment(res.data[0].ReturnDate).format('YYYY-MM-DD'))
       // console.log(res.data.some(element => moment(element.ReturnDate).format('YYYY-MM-DD')===dates))
       setData(res.data);
@@ -41,7 +41,7 @@ function ReturnCar({match}){
    const onFinish=(val)=>{
     const current = new Date();
     const today = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-    Axios.post('https://carz3330.netlify.app/returnCar',{PaymentDate:today,VehicleID:localStorage.getItem('VIN'), ReturnDate:moment(val.ReturnDate).format('YYYY-MM-DD')}).then((res)=>{
+    Axios.post('http://localhost:3001/returnCar',{PaymentDate:today,VehicleID:localStorage.getItem('VIN'), ReturnDate:moment(val.ReturnDate).format('YYYY-MM-DD')}).then((res)=>{
       
         message.success("Your car returned successfully");
         console.log(res.data)      
@@ -72,7 +72,7 @@ function ReturnCar({match}){
                                    
                                   setDate(moment(date._d).format('YYYY-MM-DD'))
                                   console.log(data)
-                                  Axios.post('https://carz3330.netlify.app/vehicleNoFilterSearch').then((res)=>{
+                                  Axios.post('http://localhost:3001/vehicleNoFilterSearch').then((res)=>{
                                     console.log(moment(res.data[0].ReturnDate).format('YYYY-MM-DD'))
                                     // console.log(res.data.some(element => moment(element.ReturnDate).format('YYYY-MM-DD')===dates))
                                     setData(res.data);

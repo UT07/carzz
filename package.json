@@ -58,7 +58,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://carz3330.netlify.app/",
+  "proxy": "http://localhost:3001/",
   "theme": {
     "primary-color": "rgb(181,77,241)"
   },
