@@ -1,7 +1,7 @@
 import './App.css';
 import Login from '../src/pages/loginPage'
 import Register from './pages/signupPage';
-import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import { BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import CarBook from './pages/bookCar';
 import UserBookings from './pages/userBookings';
@@ -29,7 +29,7 @@ function App() {
           <Route path='/returnCar/:VehicleID' render={(props)=><ReturnCar{...props}/>}/>
           <Route path='/rent/:VehicleID' render={(props)=><CarBook{...props}/>}/>
           <Route path='/editCar/:VehicleID' render={(props)=><EditCar{...props}/>}/>
-          
+          <Redirect exact from="/" to="login" />
         </Switch>
  
  
