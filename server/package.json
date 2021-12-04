@@ -13,7 +13,7 @@
   },
   "scripts": {
     "client-install": "npm install --prefix client",
-    "server": "npx nodemon server.js",
+    "server": "npm nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node server",
