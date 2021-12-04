@@ -177,15 +177,22 @@ app.post("/returnCar",(request,response)=>{
       response.send(res);
   }
   })
-  db.query(`UPDATE rentalinformation SET RemainingBalance=0 WHERE VehicleID='${request.body.VehicleID}' AND ReturnDate='${request.body.ReturnDate}'`,(err,res)=>{
+  
+})
+
+
+app.post("/returnCar",(request,response)=>{
+  db.query(`UPDATE rentalinformation SET RemainingBalance=0 WHERE VIN='${request.body.VehicleID}' AND ReturnDate='${request.body.ReturnDate}'`,(err,res)=>{
     if(err){
       console.log(err);
   }
   else{
       response.send(res);
   }
-  })
+  })  
+  
 })
+
 app.post("/vehicles",(request,response)=>{
   db.query(`INSERT INTO Vehicle VALUES('${request.body.VehicleID}','${request.body.Description}',${request.body.Year},${request.body.Type},${request.body.Category})`,(err,res)=>{
     if(err){
@@ -277,7 +284,7 @@ app.post("/nameSearch",(request,response)=>{
 
 app.post("/vehicleNameSearch",(request,response)=>{
   const Name=request.body.Name;
-  const query = `SELECT * FROM rentalinformations where vehicle like '%${Name}%' `;
+  const query = `SELECT * FROM rentalinformation where vehicle like '%${Name}%' `;
   console.log(query)
   const result=db.query(query, (error,res)=>{
     if(error){
@@ -290,7 +297,7 @@ app.post("/vehicleNameSearch",(request,response)=>{
 })
 app.post("/vinSearch",(request,response)=>{
   const Name=request.body.Name;
-  const query = `SELECT * FROM rentalinformations where VIN like '%${Name}%' `;
+  const query = `SELECT * FROM rentalinformation where VIN like '%${Name}%' `;
   console.log(query)
   const result=db.query(query, (error,res)=>{
     if(error){
@@ -303,7 +310,7 @@ app.post("/vinSearch",(request,response)=>{
 });
 app.post("/vehicleNoFilterSearch",(request,response)=>{
   
-  const query = `SELECT * FROM rentalinformations `;
+  const query = `SELECT * FROM rentalinformation `;
   console.log(query)
   const result=db.query(query, (error,res)=>{
     if(error){
