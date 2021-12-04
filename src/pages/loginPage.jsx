@@ -70,7 +70,7 @@ function Login() {
                     <img 
                     className='w-100 loginImage'
                     data-aos='slide-right'
-                    data-aos-duration='1500'
+                    data-aos-duration='1400'
                     src="https://wallpapercave.com/wp/wp5642488.jpg"/>
                 </Col>
                 <Col lg={8} className='text-left p-5'>
