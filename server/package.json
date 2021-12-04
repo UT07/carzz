@@ -12,12 +12,7 @@
     "url": "git+https://github.com/UT07/carzz.git"
   },
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "server": "npm nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
