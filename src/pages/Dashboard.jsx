@@ -64,7 +64,7 @@ function Dashboard(props){
   const [returnDate,setReturnDate]=useState('');
   const [type,setType]=useState('');
   const onChange=()=>{
-    Axios.post("http://localhost:3001/filter",{StartDate:startDate,ReturnDate:returnDate,Type:type,Category:category}).then((res)=>{setCarsList(res.data)});
+    Axios.post("https://carz3330.netlify.app/filter",{StartDate:startDate,ReturnDate:returnDate,Type:type,Category:category}).then((res)=>{setCarsList(res.data)});
     console.log(carsList);
     setVisible(!visible);
     // carsList.map(car=>{
@@ -103,7 +103,7 @@ function Dashboard(props){
   }
   
   // const getAllCars=()=>{
-  //   Axios.get("http://localhost:3001/vehicles").then((response)=>{
+  //   Axios.get("https://carz3330.netlify.app/vehicles").then((response)=>{
   //     console.log(response.data);
   //     setCarsList(response.data);
   //   });

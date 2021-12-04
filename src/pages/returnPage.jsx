@@ -12,7 +12,7 @@ function ReturnCarPage({match}){
     const [dataList,setDataList]=useState([])
 
     const init=()=>{
-        Axios.get("http://localhost:3001/returnCarView").then((res)=>{
+        Axios.get("https://carz3330.netlify.app/returnCarView").then((res)=>{
             setDataList(res.data)
             
         })

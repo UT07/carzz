@@ -6,7 +6,7 @@ export const userLogin=(request)=>async dispatch=>{
         payload:true
     })
     try{
-        const response=await axios.post('http://localhost:3001/vehicles',request)
+        const response=await axios.post('https://carz3330.netlify.app/vehicles',request)
        
         console.log(response.data)
         message.success('Login Successful')
@@ -29,7 +29,7 @@ export const userRegister=(request)=>async dispatch=>{
         payload:true
     })
     try{
-        const response=await axios.post('http://localhost:3001/vehicles',request)
+        const response=await axios.post('https://carz3330.netlify.app/vehicles',request)
         localStorage.setItem('customer',JSON.stringify(response.data))
         message.success('Registration Successful')
         dispatch({

@@ -24,7 +24,7 @@ function EditCar({match}){
   function onFinish(val) {
     val.VehicleID = car.VehicleID;
 
-    Axios.post('http://localhost:3001/editCar',{VehicleID:localStorage.getItem('vehicleID'),Description:val.Description, Year:val.Year, Type:val.Type, Category:val.Category}).then((res)=>{
+    Axios.post('https://carz3330.netlify.app/editCar',{VehicleID:localStorage.getItem('vehicleID'),Description:val.Description, Year:val.Year, Type:val.Type, Category:val.Category}).then((res)=>{
       
         message.success("Your car edited successfully");
         console.log(res.data)

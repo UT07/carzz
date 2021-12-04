@@ -8,7 +8,7 @@ function addCar({match}){
 
 
    const onFinish=(val)=>{
-    Axios.post('http://localhost:3001/vehicles',{VehicleID:val.VehicleID,Description:val.Description, Year:val.Year, Type:val.Type, Category:val.Category}).then((res)=>{
+    Axios.post('https://carz3330.netlify.app/vehicles',{VehicleID:val.VehicleID,Description:val.Description, Year:val.Year, Type:val.Type, Category:val.Category}).then((res)=>{
       
         message.success("Your car booked successfully");
         console.log(res.data)

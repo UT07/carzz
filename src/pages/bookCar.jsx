@@ -70,7 +70,7 @@ const { RangePicker } = DatePicker;
     setReturnDate(moment(val[1]).format('YYYY-MM-DD'));
     setTotalDays(Math.floor((Math.abs(val[1]-val[0]))/(1000*60*60*24)))
     console.log(startDate)
-    Axios.get('http://localhost:3001/rental',{
+    Axios.get('https://carz3330.netlify.app/rental',{
     }).then((res)=>{
       console.log(res.data);
     }).catch((err)=>{
@@ -103,7 +103,7 @@ const { RangePicker } = DatePicker;
           returned:0
         };
         if (!isNaN(x[0].CustID)){
-          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          Axios.post("https://carz3330.netlify.app/rental",req).then((res)=>
           {
             dispatch({ type: "LOADING", payload: false });
             message.success("Your car booked successfully");
@@ -130,7 +130,7 @@ const { RangePicker } = DatePicker;
           returned:1
         };
         if (!isNaN(x[0].CustID)){
-          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          Axios.post("https://carz3330.netlify.app/rental",req).then((res)=>
           {
             dispatch({ type: "LOADING", payload: false });
             message.success("Your car booked successfully");
@@ -160,7 +160,7 @@ const { RangePicker } = DatePicker;
           returned:0
         };
         if (!isNaN(x[0].CustID)){
-          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          Axios.post("https://carz3330.netlify.app/rental",req).then((res)=>
           {
             dispatch({ type: "LOADING", payload: false });
             message.success("Your car booked successfully");
@@ -187,7 +187,7 @@ const { RangePicker } = DatePicker;
           returnDate:1
         };
         if (!isNaN(x[0].CustID)){
-          Axios.post("http://localhost:3001/rental",req).then((res)=>
+          Axios.post("https://carz3330.netlify.app/rental",req).then((res)=>
           {
             dispatch({ type: "LOADING", payload: false });
             message.success("Your car booked successfully");
@@ -261,7 +261,7 @@ const { RangePicker } = DatePicker;
             </Row>
             <Row justify="space-around" className="d-flex align-items-end"  style={{marginTop:50}}>
               <button className="btn1 mt -2" onClick={()=>{
-                 Axios.post("http://localhost:3001/booking",{VehicleID:car.VehicleID}).then((res)=>{setSlots(res.data)});
+                 Axios.post("https://carz3330.netlify.app/booking",{VehicleID:car.VehicleID}).then((res)=>{setSlots(res.data)});
                  setShowModal(true)
               }}>See Booked Slots</button>
               <Button type="primary" className="btn2" shape="round" 

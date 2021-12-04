@@ -10,7 +10,7 @@ export function LoginForm(props){
     const history=useHistory();
     const loginUser=()=>{
         if(!isNaN(phoneNumber)){
-            Axios.post("http://localhost:3001/login",
+            Axios.post("https://carz3330.netlify.app/login",
             {
                 Phone:phoneNumber
             }).then(()=>

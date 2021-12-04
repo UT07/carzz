@@ -11,7 +11,7 @@ export function SignupForm(props){
     const history=useHistory();
     const registerUser=()=>{
         if(!isNaN(phoneNumberRegister)&& !isNaN(confirmPhoneNumberRegister) && !isNaN(nameRegister)){
-            Axios.post("http://localhost:3001/signup",
+            Axios.post("https://carz3330.netlify.app/signup",
             {   Name:nameRegister,
                 Phone:phoneNumberRegister,
                 ConfirmPhone:confirmPhoneNumberRegister

@@ -34,7 +34,7 @@ function Register() {
       }
     const registerUser=()=>{
         
-            Axios.post("http://localhost:3001/signup",
+            Axios.post("https://carz3330.netlify.app/signup",
             {   Name:nameRegister,
                 Phone:phoneNumberRegister,
                 ConfirmPhone:confirmPhoneNumberRegister
