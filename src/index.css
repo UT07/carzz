@@ -46,7 +46,7 @@ p{
 }
 .boxess{
   background: #CA0046;
-  height: 200px;
+  height: 230px;
 
 }
 .bt1:focus{
@@ -105,6 +105,9 @@ button{
   opacity: 0;
   transition: 0.7s;
   background: #CA0046;
+}
+.car-card{
+  margin-bottom: 100px;
 }
 .login{
   background:#CA0046;
