@@ -331,6 +331,19 @@ app.post("/vehicleNoFilterSearch",(request,response)=>{
   }
   });
 })
+app.post("/DailyBalanceSearch",(request,response)=>{
+  
+  const query = `SELECT * FROM rentalinformation where Balance like '%${Name}%' `;
+  console.log(query)
+  const result=db.query(query, (error,res)=>{
+    if(error){
+      console.log(error);
+  }
+  else{
+      response.send(res);
+  }
+  });
+})
 
 app.post("/userBookings",(request,response)=>{
   const CustID=request.body.CustID;

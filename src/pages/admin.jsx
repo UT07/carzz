@@ -90,6 +90,9 @@ function Admin(props){
               <a href="/customerList"> Customer Log</a>
             </button>  
             <button type="primary" className="btn1" >
+              <a href="/vehicleList">Vehicle Log</a>
+            </button>
+            <button type="primary" className="btn1" >
               <a href="/addcar">Add Car</a>
             </button>
             </Row>
