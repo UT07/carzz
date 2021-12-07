@@ -60,7 +60,7 @@
   },
   "proxy": "http://localhost:3001/",
   "theme": {
-    "primary-color": "rgb(181,77,241)"
+    "primary-color": "#CA0046"
   },
   "devDependencies": {
     "twilio": "^3.71.2"

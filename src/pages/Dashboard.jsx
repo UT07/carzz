@@ -176,7 +176,7 @@ function Dashboard(props){
       {<Row justify="center" gutter={40} className='mt-4'>
         {
           filteredCars.map(car=>{
-            return <Col lg={5} sm={24} xs={24} gutter={40} className='car-card'>
+            return <Col lg={5} sm={24} xs={24} gutter={40}>
               <div className="car p-2 bs1.2">
              <NavLink to={`/rent/${car.VehicleID}`}><img src={car.imagescol} className="carimg"/></NavLink> 
                 <div className="car-content d-flex align-items-center justify-content-between">
@@ -198,7 +198,7 @@ function Dashboard(props){
                       <Switch val={car.Type}/>
                       <p className="desc">{car.Daily} (D) </p>
                       <p className="desc">{car.Weekly} (W)  </p>
-                      <Button type="primary" style={{background: "rgb(181,77,241)"}} shape="round" className="book-btn mr-2" ><Link to={`/rent/${car.VehicleID}`}>Book Now </Link> </Button>
+                      <Button type="primary" style={{background: "white"}} shape="round" className="book-btn mr-2" ><Link to={`/rent/${car.VehicleID}`}>Book Now </Link> </Button>
                     </Row>
                     
                     </div>
